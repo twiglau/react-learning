@@ -12,8 +12,9 @@ export default class GetSnapshotBeforeUpdate extends React.Component {
     }
     componentDidMount(){
         setInterval(()=>{
-            // this.setState({messages:[this.state.messages.length,...this.state.messages]})
-            this.setState({messages:[...this.state.messages,this.state.messages.length]})
+            this.setState({messages:[this.state.messages.length,...this.state.messages]})
+            // 如果向后加, 就不需要该逻辑了
+            // this.setState({messages:[...this.state.messages,this.state.messages.length]})
         },1000)
     }
     getSnapshotBeforeUpdate(){
