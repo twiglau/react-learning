@@ -35,9 +35,14 @@ class Counter extends Component {
 //2. 可能需要增加 或者 减少,修改一些属性
 //   即使映射的也不会触发渲染,也是为了性能优化
 const mapStateToProps = state=>state;
-const mapDispatchToProps = actions;
+const mapDispatchToProps = (dispatch) => {
+    return {
+        increment: (...args) => dispatch(actions.increment(...args)),
+        decrement: (...args) => dispatch(actions.decrement(...args))
+    }
+};
 //connect 负责连接仓库和组件
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    actions
 )(Counter);
