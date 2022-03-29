@@ -1,7 +1,7 @@
 import counter1 from './counter1';
 import counter2 from './counter2';
-
-import { combineReducers } from 'redux';
+import counter from './counter';
+import { combineReducers } from '../../redux';
 const reducers = combineReducers({
     counter1,//0
     counter2 //0
@@ -19,7 +19,6 @@ function combineReducers1(reducers){
         newState.counter2 = counter2(state.counter2, action);
         return newState;
     }
-
 }
 
-export default reducers;
+export default counter;

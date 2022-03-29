@@ -1,26 +1,40 @@
 import React, { Component} from "react";
-import {bindActionCreators } from '../redux';
-import store from '../store';
-import actions from '../store/action';
-let boundActions = bindActionCreators(actions, store.dispatch)
-
-export default class Counter extends Component {
-    state = {number: store.getState()}
+// 1. 以下不需要手动引入
+// import {bindActionCreators } from '../redux';
+// import store from '../store'; // 不需要手动引入
+// import actions from '../store/action';
+// let boundActions = bindActionCreators(actions, store.dispatch)
+import actions from '../store/actions/counter';
+import { connect } from 'react-redux';
+class Counter extends Component {
+    // state = {number: store.getState()}
     componentDidMount(){
-        this.unsubscribe = store.subscribe(()=>{
-            this.setState({number: store.getState()})
-        });
+        //2. 取消手动订阅
+        // this.unsubscribe = store.subscribe(()=>{
+        //     this.setState({number: store.getState()})
+        // });
     }
     componentWillUnmount(){
-        this.unsubscribe();
+        //3. 取消手动订阅
+        // this.unsubscribe();
     }
     render(){
+        console.log({numCounter: this.props})
         return (
             <>
-              <p>{this.state.number}</p>
-              <button onClick={boundActions.increment}>+</button>
-              <button onClick={boundActions.decrement}>-</button>
+              <p>{this.props.number}</p>
+              <button onClick={this.props.increment}>+</button>
+              <button onClick={this.props.decrement}>-</button>
             </>
         )
     }
 }
+
+//{number: 0} => {number: 0} 将成为当前组件的属性对象
+const mapStateToProps = state=>state;
+const mapDispatchToProps = actions;
+//connect 负责连接仓库和组件
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Counter);
