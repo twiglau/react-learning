@@ -5,7 +5,7 @@ import React, { Component} from "react";
 // import actions from '../store/action';
 // let boundActions = bindActionCreators(actions, store.dispatch)
 import actions from '../store/actions/counter';
-import { connect } from 'react-redux';
+import { connect } from '../react-redux';
 class Counter extends Component {
     // state = {number: store.getState()}
     componentDidMount(){
@@ -31,6 +31,9 @@ class Counter extends Component {
 }
 
 //{number: 0} => {number: 0} 将成为当前组件的属性对象
+//1. 状态可能很大, 但此组件用的很少
+//2. 可能需要增加 或者 减少,修改一些属性
+//   即使映射的也不会触发渲染,也是为了性能优化
 const mapStateToProps = state=>state;
 const mapDispatchToProps = actions;
 //connect 负责连接仓库和组件
