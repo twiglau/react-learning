@@ -25,6 +25,8 @@ class Counter extends Component {
               <p>{this.props.number}</p>
               <button onClick={this.props.increment}>+</button>
               <button onClick={this.props.decrement}>-</button>
+              <button onClick={this.props.asyncIncrement}>delay 1s plus 1</button>
+              <button onClick={this.props.promiseIncrement}>promise plus 1</button>
             </>
         )
     }
