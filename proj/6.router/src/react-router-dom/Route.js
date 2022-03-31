@@ -5,7 +5,7 @@ export default class Route extends React.Component {
     static contextType = RouterContext;
     render(){
         const {pathname} = this.context.location;
-        const {path='/',component:Component,exact=false} = this.props;
+        const {path='/',component:Component,exact=false,render,children} = this.props;
         let paramNames = [];
         const regexp = pathToRegexp(path,paramNames,{end:exact});
         let result = pathname.match(regexp);
@@ -16,7 +16,6 @@ export default class Route extends React.Component {
         if(result){
             paramNames = paramNames.map(item=>item.name);
             const [url,...values] = result
-            console.log({url,values})
             let params = {};
             for(let i=0;i<paramNames.length;i++){
                 params[paramNames[i]] = values[i]
@@ -27,8 +26,21 @@ export default class Route extends React.Component {
                 isExact: url === pathname,
                 params,
             }
-            return <Component {...props} />
+            if(Component){
+                return <Component {...props} />
+            }else if(render){
+                return render(props);
+            }else if(children){
+                return children(props);
+            }else{
+                return null;
+            }
+        }else{
+            if(children){
+                return children(props);
+            }else{
+                return null;
+            }
         }
-        return null;
     }
 }

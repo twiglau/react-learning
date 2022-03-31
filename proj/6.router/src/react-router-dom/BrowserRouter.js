@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
 import Context from './context';
-export default class HashRouter extends Component {
+let pushState = window.history.pushState;
+
+export default class BrowserRouter extends Component {
     // 两个私有属性
     state = {
-        location: {pathname:window.location.hash.slice(1), state:null}
+        location: {pathname:window.location.pathname, state:null}
     }
-    locationState=null
     componentDidMount(){
-        window.location.hash = window.location.hash || '/'; //默认值就是 /
-        window.addEventListener('hashchange',()=>{
+        window.history.pushState = (state,title,url)=>{
+            pushState.call(window.history,state,title,url);
+            window.onpushstate.call(this,state,url);
+        }
+        window.onpopstate = (event)=>{
             this.setState({
                 location:{
                     ...this.state.location,
-                    pathname:window.location.hash.slice(1),
-                    state: this.locationState
+                    pathname:window.location.pathname,
+                    state: event.state
                 }
             });
-        });
+        }
+        window.onpushstate = (state,pathname)=>{
+            this.setState({
+                location:{
+                    ...this.state.location,
+                    pathname,
+                    state
+                }
+            });
+        }
     }
     render(){
         let that = this;
@@ -31,12 +44,10 @@ export default class HashRouter extends Component {
                     }
                     if(typeof to === 'object'){
                         const { pathname:path,state} = to
-                        that.locationState = state; // 暂存
-                        window.location.hash = path;
+                        window.history.pushState(state,'',path)
                     }else{
                         let path = to
-                        that.locationState = null;
-                        window.location.hash = path;
+                        window.history.pushState(null,'',path)
                     }
                 },
                 block(message){

@@ -4,7 +4,7 @@ export default class Link extends Component {
     static contextType = RouterContext;
     render(){
         return (
-            <a onClick={()=>this.context.history.push(this.props.to)}>{this.props.children}</a>
+            <a {...this.props} onClick={()=>this.context.history.push(this.props.to)}>{this.props.children}</a>
         )
     }
 }
