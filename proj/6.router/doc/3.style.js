@@ -16,3 +16,10 @@
  * 5. import styles from './MenuLink.css'
  *    className={styles.normal} scope={true}
  */
+
+
+/**
+ * 6. 查看webpack配置
+ * 运行
+ * npm run eject  
+ */

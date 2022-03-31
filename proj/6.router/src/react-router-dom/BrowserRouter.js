@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import Context from './context';
 let pushState = window.history.pushState;
-
+window.history.pushState = (state,title,url)=>{
+    pushState.call(window.history,state,title,url);
+    window.onpushstate.call(this,state,url);
+}
 export default class BrowserRouter extends Component {
     // 两个私有属性
     state = {
         location: {pathname:window.location.pathname, state:null}
     }
     componentDidMount(){
-        window.history.pushState = (state,title,url)=>{
-            pushState.call(window.history,state,title,url);
-            window.onpushstate.call(this,state,url);
-        }
+        
         window.onpopstate = (event)=>{
             this.setState({
                 location:{
