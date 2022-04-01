@@ -1,6 +1,6 @@
 import { takeEvery, put } from 'redux-saga/effects';
-import * as types from '../store/actionTypes';
-import { delay } from './utils';
+import * as types from '../actionTypes';
+import { delay } from '../utils';
 function* incrementAsync(){
     // 当 yield 一个 promise 时候, saga 中间件可以接受到这个 promise,它会等待这个promise完成
     let msg = yield delay(3000);
