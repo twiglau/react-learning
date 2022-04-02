@@ -8,6 +8,7 @@ class Counter extends React.Component {
                 <p>{this.props.number}</p>
                 <button onClick={this.props.increment}>+</button>
                 <button onClick={this.props.asyncIncrement}>异步执行</button>
+                <button onClick={this.props.stop}>停止计数</button>
             </div>
         )
     }

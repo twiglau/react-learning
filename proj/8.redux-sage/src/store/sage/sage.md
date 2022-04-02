@@ -6,3 +6,12 @@
 > `call(fn, ...args)` 创建一个 Effect 描述信息, 用来命令 middleware 以参数 args 调用函数 fn  
 > `call([context, fn], ...args)`  类似 call(fn, ...args) , 但支持传递 this 上下文给fn, 在调用对象方法时很有用  
 > `apply(context, fn, [...args]` call([context, fn] ...args) 的另一种写法  
+
+# fork  
+* 当 loginFlow 在 login 中被阻塞了, 最终发生在开始调用和收到响应之间的 LOGOUT 将会被错过;  
+* 我们需要的是一些非阻塞调用 login;  
+* 为了表示无阻塞调用, redux-saga 提供了另一个 Effect: fork, 当我们 fork 一个任务, 任务会在后台启动, 调用者也可以继续它自己的流程, 而不同等待被 fork 的任务结束  
+
+# race  
+* 有时候我们同时启动多个任务, 但又不想等待所有任务完成, 我们只希望按到胜利者: 即第一个被 resolve (或 reject) 的任务  
+* race 的另一个有用的功能是, 它会自动取消那些失败的 Effects  

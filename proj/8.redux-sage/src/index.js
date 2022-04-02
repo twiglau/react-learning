@@ -8,7 +8,7 @@ import Login from './components/Login';
 ReactDOM.render(
     <>
     <Provider store={store}>
-       <Login />
+       <Counter />
     </Provider>
     </>,
     document.getElementById('root')

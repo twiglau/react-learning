@@ -8,3 +8,5 @@ export const LOGOUT_REQUEST = Symbol.for('LOGOUT');
 export const LOGIN_ERROR = Symbol.for('LOGIN_ERROR');
 export const LOGIN_SUCCESS = Symbol.for('LOGIN_SUCCESS');
 export const LOGOUT_SUCCESS = Symbol.for('LOGOUT_SUCCESS');
+
+export const CANCEL_COUNTER = Symbol.for('CANCEL_COUNTER');

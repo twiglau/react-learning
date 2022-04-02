@@ -21,6 +21,7 @@ class Login extends React.Component {
                 <label>用户名:</label><input ref={this.usernameRef}/>
                 <label>密码:</label><input ref={this.passwordRef} />
                 <button onClick={this.login}>登录</button>
+                <button onClick={this.logout}>退出</button>
             </>
         )
         let logoutForm = (

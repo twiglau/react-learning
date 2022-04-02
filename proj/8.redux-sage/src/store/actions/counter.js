@@ -4,8 +4,8 @@ export default {
     increment(){
         return {type:types.INCREMENT}
     },
-    decrement(){
-        return {type:types.DECREMENT}
+    stop(){
+        return {type:types.CANCEL_COUNTER}
     },
     asyncIncrement(){
         return {type:types.ASYNC_INCREMNET}
