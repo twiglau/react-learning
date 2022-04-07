@@ -1,10 +1,13 @@
-
-import * as types from '../actionTypes';
+import * as types from '../action-types';
 export default {
     increment(){
-        return {type:types.INCREMENT}
+        return {
+            type:types.ASYNC_INCREMENT
+        }
     },
-    asyncIncrement(){
-        return {type:types.ASYNC_INCREMNET}
+    stop(){
+        return {
+            type:types.STOP_INCREMENT
+        }
     }
 }

@@ -1,52 +1,83 @@
-export default function createSagaMiddleware(){
-    function sagaMiddleware({dispatch, getState}){
-        // 管道
-        function createChannel(){
-            let observer = {};
-            function subscribe(actionType, callback){
-                console.log('subcribe-observer:',observer);
-                observer[actionType]=callback;
-            }
-            function publish(action){
-                if(observer[action.type]){
-                    // TODO: 难点
-                    let next = observer[action.type]; // next 函数
-                    delete observer[action.type];
-                    next(action);
-                    // 以下 因为 next 函数内部有 next,
-                    // 一次循环后,自动进入 next.
-                    // observer[action.type]();
-                    // delete observer[action.type];
-                }
-            }
-            return {subscribe, publish}
-        }
-        const channel = createChannel()
 
-        function run(generator){
-            // 开始自动执行这个 generator
-            console.log('开始自动执行这个 generator');
-            let it = generator();
+export default function createSagaMiddleware(){
+    function createChannel(){
+        let observer = {};
+        function subscribe(actionType,callback){
+            observer[actionType]=callback;
+        }
+        function publish(action){
+            if(observer[action.type]){
+                let next = observer[action.type];//next
+                delete observer[action.type];
+                next(action);
+
+                //observer[action.type](action);//next(action);next();
+                //delete observer[action.type];
+            }
+        }
+        return {subscribe,publish};
+    }
+    let channel = createChannel();
+    function sagaMiddleware({dispatch,getState}){
+        function run(generator,callback){
+            let it = typeof generator[Symbol.iterator] == 'function'?generator:generator();
             function next(action){
-                // value ={type:'TAKE',actionType:ASYNC_INCREMENT}
-                const {value:effect, done } = it.next(action);
+                // value={type:'TAKE',actionType:ASYNC_INCREMENT}
+                let {value:effect,done} = it.next(action);//{value,done}
                 if(!done){
-                    switch(effect.type){
-                        case 'TAKE': // take的意思就是要监听某个动作, 当动作发生的时候,执行下一步
-                          channel.subscribe(effect.actionType,next);
-                           break;
-                        case 'PUT': // {type: 'PUT', action:{type: INCREMENT}}
-                           dispatch(effect.action);
-                           next();
-                           break;
-                        default:
-                            break;
+                    if(typeof effect[Symbol.iterator]  == 'function'){
+                        run(effect);//如果是一个迭代器的话直接传入run方法进行执行
+                        next();
+                    }else if(typeof effect.then == 'function' ){
+                        effect.then(next);
+                    }else{
+                        switch(effect.type){
+                            case 'TAKE': //take的意思就是要监听某个动作,当动作发生的时候执行下一步
+                             channel.subscribe(effect.actionType,next); 
+                             //observer[ASYNC_INCREMENT]=next
+                             break;
+                            case 'PUT': //{type:'PUT',action:{type:INCREMENT}}
+                                dispatch(effect.action);
+                                next();
+                                break;
+                            case 'FORK':
+                                let newTask =  effect.task();
+                                run(newTask);//如果是fork的话，就开启一个新的子进程去的执行
+                                next(newTask);//自己的saga会立刻继续执行而不会在此等待
+                                break;
+                            case 'CANCEL':
+                                effect.task.return('任务直接结束');
+                                break;    
+                            case 'CALL':
+                                effect.fn(...effect.args).then(next);
+                                break; 
+                            case 'CPS':
+                                effect.fn(...effect.args,next);
+                                break;  
+                            case 'ALL':
+                                function times(cb,length){
+                                        let count = 0;
+                                        return function(){
+                                            if(++count === length){
+                                              cb();
+                                            }
+                                        }                                  
+                                }
+                                let fns = effect.fns;//2
+                                let done = times(next,fns.length);
+                                effect.fns.forEach(fn=>run(fn,done));    
+                                break;     
+                            default:
+                                break;
+                       } 
                     }
+                }else{
+                    callback&&callback();
                 }
             }
             next();
         }
-        sagaMiddleware.run = run;
+        sagaMiddleware.run =run;
         return function(next){
             return function(action){
                 channel.publish(action);
