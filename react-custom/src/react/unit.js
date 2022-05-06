@@ -86,7 +86,10 @@ class ReactNativeUnit extends Unit {
             if(difference.type === types.MOVE || difference.type === types.REMOVE){
                 let fromIndex = difference.fromIndex;
                 let oldChild = $(difference.parentNode.children().get(fromIndex));
-                deleteMap[fromIndex] = oldChild;
+                if(!deleteMap[difference.parentId]){
+                    deleteMap[difference.parentId] = {}
+                }
+                deleteMap[difference.parentId][fromIndex] = oldChild;
                 deleteChildren.push(oldChild);
             }
         }
@@ -99,7 +102,7 @@ class ReactNativeUnit extends Unit {
                     this.insertChildAt(difference.parentNode, difference.toIndex, $(difference.markUp));
                 break;
                 case types.MOVE:
-                    this.insertChildAt(difference.parentNode, difference.toIndex, deleteMap[difference.fromIndex]);
+                    this.insertChildAt(difference.parentNode, difference.toIndex, deleteMap[difference.parentId][difference.fromIndex]);
                 break;
                 default:
                 break;
@@ -134,6 +137,17 @@ class ReactNativeUnit extends Unit {
                 }
                 lastIndex = Math.max(lastIndex, oldChildUnit._mountIndex);
             }else{
+                if(oldChildUnit){
+                    // key 相同, 类型不同, 需要把老的节点删除掉
+                    diffQueue.push({
+                        parentId: this._rootId,
+                        parentNode:$(`[data-reactid="${this._rootId}"]`),
+                        type: types.REMOVE,
+                        fromIndex:oldChildUnit._mountIndex
+                    });
+                    this._renderedChildrenUnits = this._renderedChildrenUnits.filter(item=>item!=oldChildUnit);
+                    $(document).undelegate(`.${oldChildUnit._rootId}`)
+                }
                 diffQueue.push({
                     parentId: this._rootId,
                     parentNode:$(`[data-reactid="${this._rootId}"]`),
@@ -153,7 +167,10 @@ class ReactNativeUnit extends Unit {
                     parentNode:$(`[data-reactid="${this._rootId}"]`),
                     type: types.REMOVE,
                     fromIndex: oldChild._mountIndex
-                })
+                });
+                // 如果要删除掉某一个节点, 则要把它对应的unit也排除掉
+                this._renderedChildrenUnits = this._renderedChildrenUnits.filter(item=>item!=oldChild);
+                $(document).undelegate(`.${oldChild._rootId}`);
             }
         }
 
@@ -171,9 +188,10 @@ class ReactNativeUnit extends Unit {
                 newChildrenUnits.push(oldUnit);
                 newChildrenUnitMap[newKey] = oldUnit;
             }else{
-                let newUnit = createReactUnit(newElement);
-                newChildrenUnits.push(newUnit);
-                newChildrenUnitMap[newKey] = newUnit;
+                let nextUnit = createReactUnit(newElement);
+                newChildrenUnits.push(nextUnit);
+                newChildrenUnitMap[newKey] = nextUnit;
+                this._renderedChildrenUnits[index] = nextUnit;
             }
         });
         return {newChildrenUnitMap,newChildrenUnits};

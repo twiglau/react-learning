@@ -2,37 +2,34 @@
 // 用 react 需要使用 render 方法
 
 import React from './react';
-
-class Counter extends React.Component {
+class Todos extends React.Component {
   constructor(props){
     super(props);
-    this.state = {odd: true}
+    this.state = {list:[],text:''}
   }
-  componentDidMount(){
-    setTimeout(()=> {
-      this.setState({odd: !this.state.odd})
-    }, 1000);
+  onChange = (event)=>{
+    this.setState({text:event.target.value});
   }
- 
+  handleClick = (event)=>{
+    let text = this.state.text;
+    this.setState({
+      list:[...this.state.list,text],text:''
+    })
+  }
+  onDel = (index)=>{
+    this.setState({
+      list:[...this.state.list.slice(0, index), ...this.state.list.slice(index+1)]
+    })
+  }
   render(){
-    if(this.state.odd){
-      return React.createElement('ul',{id: 'oldCounter'},
-      React.createElement('li',{key: 'A'},'A'),
-      React.createElement('li',{key: 'B'},'B'),
-      React.createElement('li',{key: 'C'},'C'),
-      React.createElement('li',{key: 'D'},'D')
-      );
-    }
-    return React.createElement('ul',{id: 'newCounter'},
-    React.createElement('li',{key: 'A'},'A1'),
-    React.createElement('li',{key: 'C'},'C1'),
-    React.createElement('li',{key: 'B'},'B1'),
-    React.createElement('li',{key: 'E'},'E1'),
-    React.createElement('li',{key: 'F'},'D')
-    );
+    let lists = this.state.list.map((item, index)=>{
+      return React.createElement('div',{},item, React.createElement('button',{onClick:()=>this.onDel(index)},'删除'));
+    })
+    let input = React.createElement('input',{onKeyup:this.onChange, value:this.state.text})
+    let button = React.createElement('button',{onClick:this.handleClick},"+");
+    return React.createElement('div',{},input,button,...lists);
   }
 }
-
-let element = React.createElement(Counter, {name: '计数器'});
+let element = React.createElement(Todos, {name: 'Todo列表'});
 // jsx 语法 => 虚拟dom 对象 类
 React.render(element,document.getElementById('root'));
