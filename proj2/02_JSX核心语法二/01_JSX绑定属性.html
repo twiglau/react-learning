@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <!-- 引入依赖 -->
+    <script src="../React/react.development.js"></script>
+    <script src="../React/react-dom.development.js"></script>
+    <script src="../React/babel.min.js"></script>
+
+    <!-- 2.编写React代码 -->
+    <script type="text/babel">
+        class App extends React.Component {
+            constructor(){
+                super();
+                this.state = {
+                    title: '标题',
+                    img: 'http://p1.music.126.net/VpkC1MxcF5kGefrQSk3Kgg==/109951165545382506.jpg',
+                    link: 'https://www.baidu.com',
+                    active: true
+                }
+            }
+            render(){
+                const { title, img, link, active} = this.state
+                
+                return (
+                    <div>
+                        {/*1. 板顶普通属性*/}
+                        <h2 title={title}>Title</h2>
+                        <img src={img} alt="" />
+                        <a href={link} target="_blank">百度一下</a>
+
+                        {/*2. 绑定class*/}
+                        <div className="box title">我是div元素</div>
+                        <div className={"box title " + (active? "active":"")}>我也是div元素</div>
+                        <label htmlFor=""></label>
+
+                        {/*3. 绑定style */}
+                        <div style={{color:'red',backgroundColor:'pink'}}>我的div, 绑定style属性</div>
+
+
+                    </div>
+                )
+            }
+
+        }
+        ReactDOM.render(<App />, document.getElementById("app"));
+    </script>
+</body>
+</html>
