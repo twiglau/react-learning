@@ -21,5 +21,24 @@ import ReactDOM from 'react-dom';
 // import App from './08_性能优化/02_组件嵌套的render调用'
 // import App from './08_性能优化/03_shouldComponentUpdate.js'
 // import App from './08_性能优化/04_PureComponent'
-import App from './08_性能优化/05_memo的使用'
-ReactDOM.render(<App />,document.getElementById('root'));
+// import App from './08_性能优化/05_memo的使用'
+
+// import App from './09_setState不可变性和EventBug使用/01_setState不可变的力量'
+// import App from './09_setState不可变性和EventBug使用/02_全局事件传递'
+
+// import App from './10_受控和非受控组件/01_ref的使用'
+// import App from './10_受控和非受控组件/02_受控组件基本使用'
+// import App from './10_受控和非受控组件/03_受控组件select使用'
+// import App from './10_受控和非受控组件/04_受控组件-多输入'
+// import App from './10_受控和非受控组件/05_非受控组件使用'
+
+// import App from './11_高价组件的使用/01_定义方式'
+// import App from './11_高价组件的使用/02_应用-增强props'
+// import App from './11_高价组件的使用/03_应用-增强props'
+// import App from './11_高价组件的使用/04_应用-登录鉴权'
+// import App from './11_高价组件的使用/05_应用-生命周期劫持'
+
+// import App from './12_组件内容补充/01_ref的转发'
+import App from './12_组件内容补充/02_portals的使用'
+import './css/index.css'
+ReactDOM.render(<App name={'twiglau'} />,document.getElementById('root'));
