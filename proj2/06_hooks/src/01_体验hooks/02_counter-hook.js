@@ -15,9 +15,24 @@ export default function Counter1() {
         <div>
             <h2>当前计数: {counter}</h2>
             <button onClick={e => setCounter(counter + 1)}> +1</button>
+            <button onClick={e => setCounter((prev => prev + 10))}> +10</button>
+            <button onClick={handleBtnClick}> +10</button>
+            <button onClick={handleFuncBtnClick}> +10</button>
             <button onClick={e => setCounter(counter - 1)}> -1</button>
         </div>
     )
+    function handleBtnClick(){
+        setCounter(counter + 10);
+        setCounter(counter + 10);
+        setCounter(counter + 10);
+        setCounter(counter + 10);
+    }
+    function handleFuncBtnClick(){
+        setCounter(prevCount => prevCount + 10);
+        setCounter(prevCount => prevCount + 10);
+        setCounter(prevCount => prevCount + 10);
+        setCounter(prevCount => prevCount + 10);
+    }
 }
 
 /**
