@@ -1,9 +1,14 @@
-import React, { memo } from 'react'
+import React from 'react';
+import {Provider} from 'react-redux';
+import store from './store'
 
-export default memo(function App() {
+import TWMain from '@/pages/main'
+function App(){
   return (
-    <div>
-      <h2>App</h2>
-    </div>
+    <Provider store={store}>
+       <TWMain />
+    </Provider>
   )
-})
+}
+
+export default App;
