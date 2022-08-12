@@ -9,17 +9,17 @@
 4. 组件 unmount 后执行: 返回一个回调函数, 比如 `useEffect(()=>{ return ()=>{}}, [])`;
 
 # useEffect: 执行副作用;
-* 副作用? 指`一段和当前执行结果无关的代码`. 
-> 比如说要修改函数外部的某个变量, 要发起一个请求, 等等. 
-> 也就是说, **在函数组件的当次执行过程中, useEffect中代码的执行是不影响渲染出来的 UI 的**.
-> 用来模拟声明周期函数 -> 在完整页面出现之前, 做一些小处理,比如加载之前读取的内容. 
+* 副作用? 指`一段和当前执行结果无关的代码`.   
+> 比如说要修改函数外部的某个变量, 要发起一个请求, 等等.   
+> 也就是说, **在函数组件的当次执行过程中, useEffect中代码的执行是不影响渲染出来的 UI 的**.  
+> 用来模拟声明周期函数 -> 在完整页面出现之前, 做一些小处理,比如加载之前读取的内容.   
 
 * 定义: `useEffect(callback, dependencies)` 
-> 第一个为要执行的函数 callback.
-> 第二个是可选的依赖项数组 dependencies.
-> 其中依赖项时可选的, 如果不指定, 那么 callback 就会在每次函数执行完后都执行; 如果指定, 那么只有依赖项中的值发生变化的时候, 它才会执行.
-> 对应到 Class 组件, 那么 useEffect 就涵盖了 ComponentDidMount, componentDidUpdate 和 componentWillUnmount 三个声明周期方法. 不过千万不要按照把 useEffect 对应到某个 或者 几个声明周期的方法. 只要记住: **useEffect是每次组件 render 完后判断依赖并执行** 就可以了
-> useEffect 的 callback 要避免直接的 async 函数, 需要封装一下, **useEffect 的回调参数返回的是一个清除副作用的clean-up函数,因此无法返回Promise,更无法使用async/await.**, 如果让 useEffect 支持 async/await, 如下例子
+> 第一个为要执行的函数 callback.    
+> 第二个是可选的依赖项数组 dependencies.  
+> 其中依赖项时可选的, 如果不指定, 那么 callback 就会在每次函数执行完后都执行; 如果指定, 那么只有依赖项中的值发生变化的时候, 它才会执行.  
+> 对应到 Class 组件, 那么 useEffect 就涵盖了 ComponentDidMount, componentDidUpdate 和 componentWillUnmount 三个声明周期方法. 不过千万不要按照把 useEffect 对应到某个 或者 几个声明周期的方法. 只要记住: **useEffect是每次组件 render 完后判断依赖并执行** 就可以了  
+> useEffect 的 callback 要避免直接的 async 函数, 需要封装一下, **useEffect 的回调参数返回的是一个清除副作用的clean-up函数,因此无法返回Promise,更无法使用async/await.**, 如果让 useEffect 支持 async/await, 如下例子  
 
 * 例子: 某个组件用于显示一篇 Blog 文章, 那么这个组件会接收一个参数来表示 Blog 的ID. 而当 ID 发生变化时, 组件需要发起请求来获取文章内容并展示: 
 ```
