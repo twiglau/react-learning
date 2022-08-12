@@ -43,7 +43,10 @@ function BlogView({ id }) {
     }, [id]); // 使用 id 作为依赖项, 变化时则执行副作用
 }
 ```  
-> 这样, 我们就利用 useEffect 完成了一个简单的数据请求的需求. 在这段代码中, 我们把 ID 作为依赖项参数, 这样就很自然地在ID发生变化时, 利用useEffect执行副作用去后去数据. 如果在之前的类组件中要完成类似的需求, 我们就需要在 componentDidUpdate 这个方法里, 自己去判断两次ID是否发生了变化. 如果变了, 才去请求. 这样的话, 逻辑上就不如 useEffect 来的直观.
+> 这样, 我们就利用 useEffect 完成了一个简单的数据请求的需求. 在这段代码中, 我们把 ID 作为依赖项参数, 这样就很自然地在ID发生变化时, 利用useEffect执行副作用去后去数据. 如果在之前的类组件中要完成类似的需求, 我们就需要在 componentDidUpdate 这个方法里, 自己去判断两次ID是否发生了变化. 如果变了, 才去请求. 这样的话, 逻辑上就不如 useEffect 来的直观.  
+> 在 useEffect 中使用了 setBlogContent 这样一个函数, 本质上它也是一个局部变量, 那么这个函数需要被作为依赖项吗? 为什么?  
+>>  不需要;
+>>  setBlogContent 是永远不会变化的, 因为是 useState 中返回的. 这是 useState 的机制决定的, React 和 ESLint 插件都知道, 所以写不写都是一样的, 可以忽略;
 
 * useEffect 还有两个特殊的用法: **没有依赖项, 以及依赖项作为空数组**
 1. 没有依赖项, 则每次 render 后都会重新执行
@@ -138,6 +141,61 @@ function MyComp() {
 ```  
 
 * 规则2: 只能在函数组件或者其他 Hooks 中使用;
-- Hooks 作为专门为函数组件设计的机制, 使用的情况只有两种: 1. 在函数组件内, 2. 在自定义的 Hooks 里面;
-- 这个规则在函数组件和类组件同时存在项目中, 可能会造成一定的困扰, 因为Hooks 简洁, 直观. 我们可能都倾向于用Hooks来实现逻辑的重用, 但是如果一定要在 Class 组件中使用, 那应该如何做? 
-> 其实有一个通用的机制, 那就是**利用高阶组件的模式, 将Hooks封装成高阶组件, 从而让类组件使用.**
+  * Hooks 作为专门为函数组件设计的机制, 使用的情况只有两种: 1. 在函数组件内, 2. 在自定义的 Hooks 里面;
+  * 这个规则在函数组件和类组件同时存在项目中, 可能会造成一定的困扰, 因为Hooks 简洁, 直观. 我们可能都倾向于用Hooks来实现逻辑的重用, 但是如果一定要在 Class 组件中使用, 那应该如何做? 
+  >> 其实有一个通用的机制, 那就是**利用高阶组件的模式, 将Hooks封装成高阶组件, 从而让类组件使用.**
+  >> 举例: 我们已经定义了监听窗口大小变化的一个Hook: useWindowSize. 那么很容易就可以将其转换为高阶组件:  
+  ```
+  import React from 'react';
+  import { useWindowSize } from '../hooks/useWindowSize';
+
+  export const withWindowSize = (Comp) => {
+      return props => {
+          const windowSize = useWindowSize();
+          return <Comp windowSize={windowSize} {...props} />;
+      }
+  }
+  ```  
+  >> 那么就可以通过如下代码来使用这个高阶组件:
+  ```
+  import React from 'react';
+  import { withWindowSize } from './withWindowSize';
+
+  class MyComp {
+      render () {
+          const { windowSize } = this.props;
+          // ...
+      }
+  }
+
+  // 通过 withWindowSize 高级组件给 MyComp 添加 windowSize 属性
+  export default withWindowSize(MyComp);
+  ```  
+
+# 使用ESLint 插件帮助检查 Hooks 的使用  
+* Hooks 的一些特性和要遵循的规则, 那么应用到日常的开发中, 就必须时刻注意不能写错. 三点如下:
+1. 在 useEffect 的回调函数中使用的变量, 都必须在依赖项中声明;
+2. Hooks 不能出现在条件语句 或者 循环中, 也不能出现在 return 之后;
+3. Hooks 只能在函数组件 或者 自定义 Hooks 中使用;
+
+* 检查 Hooks 是否正确使用, 它就是: [eslint-plugin-react-hooks](https://www.npmjs.com/package/eslint-plugin-react-hooks)
+1. 安装: 
+```
+npm install eslint-plugin-react-hooks --save-dev  
+```  
+
+2. 在ESLint 配置文件中加入两个规则: `rule-of-hooks` 和 `exhaustive-deps`:
+```
+{
+    "plugins": [
+        // ...
+        "react-hooks",
+    ],
+    "rules": [
+        // ...
+        // 检查 Hooks 的使用规则
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn"
+    ]
+}
+```  
