@@ -16,15 +16,23 @@
 import React, { useState, useCallback, useRef } from 'react';
 
 export default function Timer() {
+    // 定义 time state 用于保存计时的累积时间
     const [time, setTime] = useState(0);
+
+    // 定义 timer 这样一个容器用于在跨组件渲染之间保存一个变量
     const timer = useRef(null);
+
+    // 开始计时的事件处理函数
     const handleStart = useCallback(() => {
         // 使用 current 属性设置 ref 的值
         timer.current = window.setInterval(()=>{
             setTime((time)=> time + 1);
         },100);
     }, []);
+
+    // 暂停计时的事件处理函数
     const handlePause = useCallback(()=> {
+        // 使用 clearInterval 来停止计时
         window.clearInterval(timer.current);
         timer.current = null;
     }, []);
@@ -50,9 +58,9 @@ export default function Timer() {
 - 问题: useRef 如果只是用来 在多次渲染之间共享数据，是不是直接可以把变量定义到组件外面，这样也可以达到目的，感觉还更方便一点呢? 
 >  useRef 可以保证这个变量只在当前组件的实例中使用。也就是说，如果一个组件页面上有多个实例，比如：`<div><Timer /><Timer /></div>`. 那么组件外的普通变量是被 Timer 共享的，就会产生问题。  
 
-# 除了存储渲染的数据之外, useRef 还有一个重要的功能, 就是`保存某个DOM节点的引用.` 我们知道, 在React中,  几乎不需要关心真实的 DOM 节点是如何渲染和修改的. 但是在某些场景中, 我们必须要获得真实 DOM 节点的引用, 所以结合 React 的 ref 属性和 useRef 这个 Hook, 我们就可以获得真实的 DOM 节点, 并对这个节点进行操作.  
-
-- 比如说, 你需要在点击某个按钮时让某个输入框获得焦点, 可以通过下面的代码来实现: 
+# 保存某个DOM节点的引用.
+- 除了存储渲染的数据之外, useRef 还有一个重要的功能, 就是`保存某个DOM节点的引用.` 我们知道, 在React中,  几乎不需要关心真实的 DOM 节点是如何渲染和修改的. 但是在某些场景中, 我们必须要获得真实 DOM 节点的引用, 所以结合 React 的 ref 属性和 useRef 这个 Hook, 我们就可以获得真实的 DOM 节点, 并对这个节点进行操作.    
+- 比如说, 你需要在点击某个按钮时让某个输入框获得焦点, 可以通过下面的代码来实现:  
 ```
 function TextInputWithFocusButton() {
     // 这句话，没有动态设置useRef的current，因为ref自动绑定到了dom节点，相当于是一种隐式设置。注意和上面例子的区别。
