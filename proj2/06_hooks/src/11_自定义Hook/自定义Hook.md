@@ -65,7 +65,7 @@ function Counter() {
 * 在组件的开发过程中, 有一些常用的通用逻辑. 过去可能会因为逻辑重用比较繁琐, 而经常在每个组件中去自己实现, 造成维护的困难. 但现在有了 Hooks, 就可以将更多的通常逻辑通过 Hooks 的形式进行封装, 方便被不同的组件重用.
 * 比如, 在日常 UI 的开发中, 有一个最常见的需求: `发起异步请求获取数据并显示在界面上`. 在这个过程中, 我们不仅要关心请求正确返回时, UI会如何展现数据; 还需要处理请求出错, 以及关注 Loading 状态在 UI 上如何显示.
 
-1. 我们可以重新看下载第1讲中看到的异步请求的例子, 从 Server 端获取用户列表, 并显示在界面上:  
+ * 我们可以重新看下载第1讲中看到的异步请求的例子, 从 Server 端获取用户列表, 并显示在界面上:  
 ```
 import React from 'react';
 
@@ -109,5 +109,275 @@ export default function UserList() {
     );
 }
 ```   
-* 在这里, 我们定义了 users, loading 和 error 三个状态. 如果我们在异步请求的不同阶段去设置不同的状态, 这样 UI 最终能够根据这些状态展现出来. 在每个需要异步请求的组件中, 其实都需要重复相同的逻辑. 
-* 事实上, 在处理这类请求的时候, 模式都是类似的, 通常都会遵循下面步骤:  
+ * 在这里, 我们定义了 users, loading 和 error 三个状态. 如果我们在异步请求的不同阶段去设置不同的状态, 这样 UI 最终能够根据这些状态展现出来. 在每个需要异步请求的组件中, 其实都需要重复相同的逻辑. 
+ * 事实上, 在处理这类请求的时候, 模式都是类似的, 通常都会遵循下面步骤:  
+  - 创建 data, loading, error 这3个 state;
+  - 请求发出后, 设置 loading state 为 true;
+  - 请求成功后, 将返回的数据放到某个 state 中, 并将 loading state 设为 false;
+  - 请求失败后, 设置 error state 为 true, 并将 loading state 设为 false;
+  - 最后, 基于 data, loading, error 这 3 个 state 的数据, UI就可以正确地显示数据, 或者 loading, error 这些反馈给用户了.  
+
+* 所以, 通过创建一个自定义 Hook, 可以很好地将这样的逻辑提取出来, 成为一个可重用的模块, 如下:  
+```
+import { useState } from 'react';
+
+const useAsync = (asyncFunction) => {
+    const [data, setData] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    // 定义一个 callback 用于执行异步逻辑
+    const execute = useCallback(() => {
+        // 请求开始时, 设置 loading 为 true, 清除已有数据 和 error 状态 
+        setLoading(true);
+        setData(null);
+        setError(null);
+        return asyncFunction()
+          .then((response) => {
+              // 请求成功时, 将数据写进 state, 设置 loading 为 false 
+              setData(response);
+              setLoading(false);
+          })
+          .catch((error) => {
+              // 请求失败时, 设置 loading 为 false, 并设置错误状态
+              setError(error);
+              setLoading(false);
+          });
+    }, [asyncFunction]);
+
+    return { execute, loading, data, error };
+};
+```  
+* 那么有了这个 Hook, 我们在组件中就只需要关心与业务逻辑相关的部分. 比如代码可以简化成这样的形式:  
+```
+import React from 'react';
+import useAsync from './useAsync';
+
+export defalut function UserList() {
+    // 通过 useAsync 这个函数, 只需要提供异步逻辑的实现
+    const {
+        execute: fetchUsers,
+        data: users,
+        loading,
+        error,
+    } = userAsync(async () => {
+        const res = await fetch("https//reqres.in/api/users/");
+        const json = await res.json();
+        return json.data;
+    });
+
+    return (
+        // 根据状态渲染 UI...
+    );
+}
+```  
+* 通过这个例子可以看到, 我们 `利用了 Hooks 能够管理 React 组件状态的能力, 将一个组件中的某一部分状态独立处理, 从而实现了通过逻辑的重用`.  
+> 不过在这里可能有疑问: 这种类型的封装写一个工具类不就可以了吗? 为什么一定要通过 Hooks 进行封装呢?  
+> 答案很容易就能想到. 因为在 Hooks 中, 你可以管理当前组件的 state, 从而将更多的逻辑写在可重用的 Hooks 中. 但是要知道, 在普通的工具类中是无法直接修改组件 state 的, 那么也就无法在数据改变的时候触发组件的重新渲染.  
+
+# 监听浏览器状态: useScroll  
+* 虽然 React 组件基本上不需要关心太多的浏览器 API, 但是有时候确实必须的:  
+ * 界面需要更具在窗口大小变化重新布局;  
+ * 在页面滚动时, 需要根据滚动条位置, 来决定是否显示一个 "返回顶部" 的按钮.  
+* 这都需要用到浏览器的 API 来监听这些状态的变化. 那么我们就以滚动条位置的场景为例, 来看看应该如何用 Hooks 优雅地监听浏览器状态.  
+* 正如 Hooks 的字面意思是 "钩子", 它带来的一大好处就是: `可以让React的组件绑定在任何可能的数据源上. 这样当数据源发生变化时, 组件能够自动刷新`. 把这个好处对应到滚动条位置这个场景就是: 组件需要绑定到当前滚动条的位置数据上.  
+* 虽然这个逻辑在函数组件中可以直接实现, 但是把这个逻辑实现为一个独立的 Hooks, 即可以达到逻辑重用, 在语义上也更加清晰. 这个和上面的 useAsync 的作用是非常类似的.  
+```
+import { useState, useEffect } from 'react';
+
+// 获取横向, 纵向滚动条位置
+const getPosition = () => {
+    return {
+        x: document.body.scrollLeft,
+        y: document.body.scrollTop
+    };
+};
+const useScroll = () => {
+    // 定一个 position 这个 state 保存滚动条位置
+    const [position, setPosition] = useState(getPosition());
+    useEffect(() => {
+        const handler = () => {
+            setPosition(getPosition());
+        };
+        // 监听 scroll 事件, 更新滚动条位置
+        document.addEventListener("scroll", handler);
+        return () => {
+            // 组件销毁时, 取消事件监听
+            document.removeEventListener("scroll", handler);
+        };
+    }, []);
+    return position;
+};
+```  
+* 有了这个 Hook, 你就可以非常方便地监听当前浏览器窗口的滚动条位置了. 比如下面的代码就展示了 "返回顶部" 这样一个功能的实现:  
+```
+import React, { useCallback } from 'react';
+import useScroll from './useScroll';
+
+function ScrollTop() {
+    const { y } = useScroll();
+
+    const goTop = useCallback(() => {
+        document.body.scrollTop = 0;
+    }, []);
+
+    const style = {
+        position: "fixed",
+        right: "10px",
+        bottom: "10px"
+    };
+    if(y > 300) {
+        return (
+            <button onClick={goTop} style={style}>
+              Back to Top
+            </button>
+        );
+    }
+    // 否则不 render 任何 UI
+    return null;
+}
+```   
+* 通过这个例子, 我们看到了如何将浏览器状态变成可被 React 组件绑定的数据源, 从而在使用上更加便捷和直观. 当然, 除了窗口大小, 滚动条位置这些状态, 还有其他一些数据也可以这样操作, 比如 cookies, localStorage, URL, 等等. 你都可以通过这样的方法来实现.  
+
+# 拆分复杂组件  
+* 函数组件虽然很容易上手, 但是当某个组件功能越来越复杂的时候, 会发现, 就是组件代码很容易变得特别长, 比如超过 500 行, 甚至 1000 行. 这就变得非常难维护了.  
+
+* 设想当你接收某个项目, 发现一个函数动辄就超过了 500 行, 那回事什么感受 ? 所以 `保持每个函数的短小` 这样通用的最佳实践, 同样适用于函数组件. 只有这样, 才能让代码始终易于理解和维护.  
+
+* 那么现在的关键问题就是, 怎么才能让函数组件不会太过冗长? 做法很简单, 就是`尽量将相关的逻辑做成独立的 Hooks, 然后在函数组中使用这些 Hooks, 通过参数传递和返回值让 Hooks 之间完成交互`.  
+
+* 这里可以注意一点, `拆分逻辑的目的不一定是为了重用, 而可以是仅仅为了业务逻辑的隔离`. 所以在这个场景下, 我们不一定要把 Hooks 放到独立的文件中, 而是可以和函数组件写在一个文件中. 这么做的原因在于, 这些 Hooks 是和当前函数紧密相关的, 所以写到一起, 反而更容易阅读和理解.  
+
+* 为了让你对这一点有更直观的感受, 我们来看一个例子. 设想现有这样一个需求: 需要展示一个博客文章的列表, 并且有一列要显示文章的分类. 同时, 我们还需要提供表格过滤功能, 以便能够只显示某个分类的文章.  
+
+* 为了支持过滤功能, 后端提供了两个 API: 一个用于获取文章的列表, 另一个用于获取所有的分类. 这就需要我们在前端将文章类表返回的数据分类 ID 映射到分类的名字, 以便显示在列表里.  
+
+* 这时候, 如果按照直观的思路去实现, 通常都会把逻辑写在一个组件里, 比如类似下面的代码:  
+```
+function BlogList() {
+    // 获取文章列表...
+    // 获取分类列表...
+    // 组合文章数据和分类数据...
+    // 根据选择的分类过滤文章...
+
+    // 渲染 UI ...
+}
+```   
+* 可以像一下, 如果是在写一个其他的普通函数, 会不会将其中一些逻辑写成单独的函数呢?  相信是肯定的, 因为这样做可以隔离业务逻辑, 让代码更加清楚.
+* 但却发现很多在`写函数组件时没有意识到 Hooks 就是普通的函数`, 所有通常不会那么去做隔离, 而是习惯一路写下来, 这就会造成某个函数组件特别长. 还是常说的那句: `改变这个状况的关键仍然在于开发思路的转变`. 我们要真正 `把Hooks看成普通的函数, 能隔离的尽量去做隔离`. 从而让代码更加模块化, 更易于理解和维护.  
+* 那么针对这样一个功能, 我们甚至可以将其拆分成 4 个 Hooks, 每一个 Hook 都尽量小, 代码如下:  
+```
+import React, { useEffect, useCallback, useMemo, useState } from 'react';
+import { Select, Table } from 'antd';
+import _ from 'lodash';
+import useAsync from './useAsync';
+
+const endpoint = "https://myserver.com/api/";
+const useArticles = () => {
+    // 使用上面创建的 useAsync 获取文章列表 
+    const { execute, data, loading, error } = useAsync(
+        useCallback( async () => {
+            const res = await fetch(`${endpoint}/posts`);
+            return await res.json();
+        }), [])
+    );
+    // 执行异步调用
+    useEffect(() => execute(), [execute]);
+    // 返回语义化的数据结构
+    return {
+        articles: data,
+        articlesLoading: loading,
+        articlesError: error
+    };
+};
+const useCategories = () => {
+    // 使用上面创建的 useAsync 获取分类列表
+    const { execute, data, loading, error } = useAsync(
+        useCallback(async () => {
+            const res = await fetch(`${endpoint}/categories`);
+            return await res.json();
+        }, [])
+    );
+    // 执行异步调用 
+    useEffect(() => execute(), [execute]);
+
+    // 返回语义化的数据结构 
+    return {
+        categories: data,
+        categoriesLoading: loading,
+        categoriesError: error
+    };
+};
+const useCombinedArticles = (articles, categories) => {
+    // 将文章数据和分类数据组合到一起
+    return useMemo(() => {
+        // 如果没有文章或者分类数据则返回 null 
+        if(!articles || !categories) return null;
+        return articles.map((article) => {
+            return {
+                ...article,
+                category: categories.find( c => String(c.id) === String(article.categoryId)),
+            };
+        });
+    }, [articles, categories]);
+};
+
+const useFilterArticles = (articles, selectedCategory) => {
+    // 实现按照分类过滤
+    return useMemo(() => {
+        if(!articles) return null;
+        if(!selectedCategory) return articles;
+        return articles.filter((article) => {
+            console.log("filter: ", article.categoryId, selectedCategory);
+            return String(article?.category?.name) === String(selectedCategory);
+        });
+    }, [articles, selectedCategory]);
+};   
+
+const columns = [
+    { dataIndex: "title", title: "Title"},
+    { dataIndex: ["category", "name"], title: "Category"},
+];
+
+export default function BlogList() {
+    const [ selectedCategory, setSelectedCategory ] = useState(null);
+    // 获取文章列表
+    const { articles, articlesError } = useArticles();
+    // 获取分类列表 
+    const { categories, categoriesError } = useCategories();
+    // 组合数据 
+    const combined = useCombinedArticles(articles, categories);
+    // 实现过滤 
+    const result = useFilterArticles(combined, selectedCategory);
+
+    // 分类下拉框选项用于过滤
+    const options = useMemo(() => {
+        const arr = _.uniqBy(categories, (c) => c.name).map((c) => ({
+            value: c.name,
+            label: c.name
+        }));
+        arr.unshift({ value: null, label: "All"});
+        return arr;
+    }, [categories]);
+
+    // 如果出错, 简单返回 Failed
+    if(articlesError || categoriesError) return "Failed";
+
+    // 如果没有结果, 说明正在加载
+    if(!result) return "Loading...";
+
+    return (
+        <div>
+          <Select
+            value={selectedCategory}
+            onChange={(value) => setSelectedCategory(value)}
+            options={options}
+            style={{width: "200px"}}
+            placeholder="Select a category"
+          />
+          <Table dataSource={result} columns={columns} />
+        </div>
+    )
+}
+```   
+* 通过这样的方式, 我们就把一个较为复杂的逻辑拆分成一个个独立的 Hook 了, 不仅隔离了业务逻辑, 也让代码在语义上更加明确. 比如说有 useArticles, useCategories 这样与业务相关的名字, 就非常易于理解.
+
