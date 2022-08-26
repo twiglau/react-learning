@@ -107,4 +107,115 @@ export default function MyForm() {
        return { values, setFieldValue };
    }
    ```  
+   * 有了这样一个简单的 Form, 我们就不再需要很繁琐地为每个元素单独设置状态了.
+   ```
+   import { useCallback } from "react";
+   import useForm from './userForm';
 
+   export default () => {
+       // 使用 useForm 得到表单的状态管理逻辑
+       const { values, setFieldValue } = useForm();
+       // 处理表单的提交事件
+       const handleSubmit = useCallback(
+           (evt) => {
+               // 使用 preventDefault() 防止页面被刷新
+               evt.preventDefault();
+               console.log(values);
+           },
+           [values],
+       );
+       return (
+           <form onSubmit={handleSubmit}>
+             <div>
+               <label>Name: </label>
+               <input
+                 value={values.name || null}
+                 onChange={(evt) => setFieldValue("name", evt.target.value)}
+               />
+             </div>
+             <div>
+               <label>Email:</label>
+               <input
+                 value={values.email || null}
+                 onChange={(evt) => setFieldValue("email", evt.target.value)}
+               />
+             </div>
+             <button type="submit">Submit</button>
+           </form>
+       )
+   }
+   ```  
+   * 那么, 通过将表单状态管理的逻辑提取出来, 使之成为一个通用的 Hook, 这样我们就简化了在 React 中使用表单的逻辑.
+   * 虽然这看上去只是一个很简单的实现, 但是基本上一些开源的表单方案都是基于这么一个核心的原理: `把表单的状态管理单独提取出来, 成为一个可重用的 Hook`. 这样在表单的实现组件中, 我们就只需要更多地去关心 UI 的渲染, 而无需关心状态是如何存储和管理的, 从而方便表单组件的开发.  
+
+# 处理表单验证   
+当我们基于 Hooks 实现了一个基本的表单状态管理机制之后, 现在, 我们就要在这个机制的基础之上, 再增加 `一个表单处理必备的业务逻辑: 表单验证`  
+在考虑这个验证逻辑如何实现的时候, 我们同样也是 `遵循状态驱动这个原则: `
+1. 首先: 如何定义这样的错误状态;
+2. 其次: 如何去设置这个错误状态;  
+```
+// 除了初始值之外, 还提供了一个 validators 对象
+// 用于提供针对某个字段的验证函数
+const useForm = (initialValues = {}, validators) => {
+    const [values, setValues] = useState(initialValues);
+    // 定义了 errors 状态
+    const [errors, setErrors] = useState({});
+
+    const setFieldValue = useCallback(
+        (name, value) => {
+            setValues((values) => ({
+                ...values,
+                [name]: value,
+            }));
+
+            // 如果存在验证函数, 则调用验证用户输入
+            if(validators[name]) {
+                const errMsg = validators[name](value);
+                setErrors((errors) => ({
+                    ...errors,
+                    // 如果返回错误信息, 则将其设置到 errors 状态, 否则清空错误状态
+                    [name]: errMsg || null,
+                }));
+            }
+        },
+        [validators],
+    );
+    // 将 errors 状态也返回给调用者
+    return { values, errors, setFieldValue };
+};
+```   
+* 那么我们就可以在使用的时候传递下面的 validators 对象给 useForm 这个 Hook:  
+```
+ function MyForm() {
+     // 用 useMemo 缓存 validators 对象
+     const validators = useMemo(() => {
+         return {
+             name: (value) => {
+                 // 要求 name 的长度不得小于 2
+                 if(value.length < 2) return "Name length should be no less than 2.";
+                 return null;
+             },
+             email: (value) => {
+                 // 简单的实现一个 email 验证逻辑: 必须包含 @ 符号.
+                 if(!value.includes("@")) return "Invalid email address";
+                 return null;
+             }
+         };
+     }, []);
+     // 从 useForm 的返回值获取 errors 状态 
+     const { values, errors, setFieldValue } = useForm({}, validators);
+     // UI 渲染逻辑...
+ }
+```   
+* 这样, 我们就将表单验证的逻辑也封装到了通用的 useForm 这个 Hook 中了.
+
+# 常用的 React Form 框架  
+* 背后的原理: `把表单的状态逻辑和UI展示逻辑基于 Hooks 进行分离` 
+* 主流的表单框架:  
+1. [Antd Form](https://ant.design/components/form/)  
+2. [Formik](https://formik.org/)
+3. [React Hook Form](https://react-hook-form.com/)
+
+# 小结  
+* 在 React 中使用 Form 的基本流程. Form 最为核心的机制就是我们将 表单元素的所有状态提取出来, 这样表单就可以分为状态逻辑 和 UI 展现逻辑, 从而实现数据层和表现层的分离.  
+* 在一些传统的表单解决方案之中, 这个状态一般会用 Context 或者 Redux 去管理, 而现在有了 Hooks, 那我们基于 Hooks 就可以很容易实现一个简单的表单逻辑管理模块.  
