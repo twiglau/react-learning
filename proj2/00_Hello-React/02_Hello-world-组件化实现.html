@@ -9,37 +9,35 @@
 <body>
     <div id="app"></div>
     <!-- 引入依赖 -->
-    <script src="../React/react.development.js"></script>
+    <script src="../React/react.development.js" crossorigin></script>
     <script src="../React/react-dom.development.js"></script>
     <script src="../React/babel.min.js"></script>
 
-    <!-- 2.编写React代码 -->
     <script type="text/babel">
+        // 封装App组件
         class App extends React.Component {
-            constructor(){
+            constructor() {
                 super();
+                // this.message = "Hello world"
                 this.state = {
-                    count: 0
+                    message: "Hello World"
                 }
             }
-
-            render(){
+            render() {
                 return (
                     <div>
-                        <h2>{this.state.count}</h2>
-                        <button onClick={this.increment}>+1</button>
-                        <button onClick={this.decrement}>-1</button>
+                        <h2>{this.state.message}</h2>
+                       {/*内部调用btnClick时,是这样调用的 btnClick.apply(undefined, ...)*/}
+                        <button onClick={this.btnClick.bind(this)}>改变文本</button>
                     </div>
                 )
             }
-            increment = ()=> {
+
+            btnClick() {
+                console.log("按钮点击了", this)
+                // this.state.message = "Hello React";
                 this.setState({
-                    count:this.state.count+1 
-                })
-            }
-            decrement = ()=> {
-                this.setState({
-                    count:this.state.count-1
+                    message: "Hello React"
                 })
             }
         }

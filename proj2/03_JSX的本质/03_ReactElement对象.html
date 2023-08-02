@@ -18,29 +18,26 @@
         class App extends React.Component {
             constructor(){
                 super();
-                this.state = {
-                    count: 0
-                }
             }
 
             render(){
-                return (
+                // jsx -> createElement函数 -> ReactElement(对象树) -> ReactDOM.render => 真实DOM
+                let elementObj = (
                     <div>
-                        <h2>{this.state.count}</h2>
-                        <button onClick={this.increment}>+1</button>
-                        <button onClick={this.decrement}>-1</button>
+                        <div className="header">
+                            <h1 title="标题">我是标题</h1>
+                        </div>
+                        <div className="content">
+                            <h2>页面的内容</h2>
+                            <button>按钮</button>
+                        </div>
+                        <div className="footer">
+                            <p>尾部的内容</p>
+                        </div>
                     </div>
                 )
-            }
-            increment = ()=> {
-                this.setState({
-                    count:this.state.count+1 
-                })
-            }
-            decrement = ()=> {
-                this.setState({
-                    count:this.state.count-1
-                })
+                console.log(elementObj)
+                return elementObj
             }
         }
         ReactDOM.render(<App />, document.getElementById("app"));

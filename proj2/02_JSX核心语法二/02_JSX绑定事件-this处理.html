@@ -28,12 +28,14 @@
                     <div>
                         {/*1. 方案一: bind绑定this(显示绑定 )*/}
                         <button onClick={this.btnClick1.bind(this)}>按钮1</button>
-                        <button onClick={this.btnClick2}>按钮2</button>
+                        <button onClick={this.btnClick1.bind(this)}>按钮2</button>
+                        <button onClick={this.btnClick2}>按钮3</button>
+                        <button onClick={this.btnClick2}>按钮4</button>
 
                         {/*2. 方案二:定义函数时,使用箭头函数 */}
                         <button onClick={this.increment}>加一</button>
 
-                        {/*3. 方案三: 直接传入一个箭头函数 在箭头函数中调用需要执行的函数*/}
+                        {/*3. 方案三(推荐): 直接传入一个箭头函数 在箭头函数中调用需要执行的函数*/}
                         <button onClick={()=>{
                               this.decrement("lau")
                          }}>减一</button>

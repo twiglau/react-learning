@@ -16,6 +16,8 @@
     <!-- 2.编写React代码 -->
     <script type="text/babel">
         // jsx -> babel -> React.createElement()
+        // jsx 仅仅只是 React.createElement(component, props, ...children)函数的语法糖
+        // 所有的jsx最终都会被转换成 React.createElement的函数调用
         const message1 = <h2>Message</h2>;
         const message2 = React.createElement("h2",null,"Hello React");
         ReactDOM.render(message2, document.getElementById("app"));

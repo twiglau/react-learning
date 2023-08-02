@@ -15,45 +15,25 @@
 
     <!-- 开始开发 -->
     <!-- 注意事项：使用jsx, 并且希望script中jsx的代码被解析，必须在script标签中添加一个属性 -->
+    <!-- jsx的特点: 多个标签最外层(根)只能有一个标签 -->
     <script type="text/babel">
-        class App extends React.Component {
-            constructor(){
-                super();
-                this.state = {
-                    message: 'Hello World',
-                    movies: [
-                        '大话西游',
-                        '盗梦空间',
-                        '星际穿越',
-                        '流浪地球'
-                    ]
-                }
-            }
-            render(){
-                let liMo = this.state.movies.map(ele => {
-                    return <li>{ele}</li>
-                })
-                return (
-                    <div>
-                        <h2>电影列表</h2>
-                        <ul>
-                            {liMo}
-                        </ul>
-                        <h2>电影列表2</h2>
-                        <ul>
-                            {
-                                this.state.movies.map(item=>{
-                                    return <li>{item}</li>
-                                })
-                            }
-                        </ul>
-                    </div>
-                )
-            }
-
-        }
         // render(渲染的内容， 挂载的对象)
-        ReactDOM.render(<App />, document.getElementById("app"));
+        let message = "Hello world";
+        function btnClick() {
+            message = "Hello React";
+            console.log(message)
+            render()
+        }
+        function render() {
+            ReactDOM.render(
+            <div>
+                <h2>{message}</h2>
+                <button onClick={btnClick}>改变文本</button>
+            </div>
+            ,
+             document.getElementById("app"));
+        }
+        render()
     </script>
 </body>
 </html>
