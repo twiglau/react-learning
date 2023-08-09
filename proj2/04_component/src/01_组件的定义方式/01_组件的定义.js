@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
 // export default class App extends Component {
-//     render(){
-//         return (
-//             <div>
-//                 <span>我是App组件</span>
-//                 {/*alt + shift + f: 对代码进行格式化 */}
-//                 <h2>{}</h2>
-//             </div>
-//         )
-//     }
+//   render() {
+//     return (
+//       <div>
+//         <span>我是App组件</span>
+//         {/*alt + shift + f: 对代码进行格式化 */}
+//         <h2>{}</h2>
+//       </div>
+//     );
+//   }
 // }
 
 /**

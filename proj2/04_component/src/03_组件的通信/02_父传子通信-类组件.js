@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 
+function ChildCpn2(props) {
+  const { name, age, height } = props
+  return <h2>子组件展示数据2: {name + ' ' + age + ' ' + height }</h2>
+}
 // props
 class ChildCpn extends Component {
     constructor(props){
@@ -20,6 +24,7 @@ export default class App extends Component {
     return (
       <div>
          <ChildCpn name="a" age="18" height="200" />
+         <ChildCpn2 name="a" age="18" height="200" />
       </div>
     )
   }
