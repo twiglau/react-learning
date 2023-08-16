@@ -4,7 +4,7 @@
 
 
 import React, { Component } from 'react'
-// 创建 context 对象
+// 创建 context 对象(defaultValue)
 const UserContext = React.createContext({
     username: 'twiger',
     level: -1
@@ -15,8 +15,9 @@ class ProfileHeader extends Component{
         console.log(this.context);
         return (
             <div>
-                <h2>用户昵称: </h2>
-                <h2>用户等级: </h2>
+                <h2>用户昵称: {this.context.nickname} </h2>
+                <h2>用户等级: {this.context.level}</h2>
+                <h2>用户年龄: {this.context.age}</h2>
             </div>
         )
     }
@@ -37,7 +38,8 @@ function Profile(props){
 export default class App extends Component {
     state = {
         nickname: 'purple',
-        level: 99
+        level: 99,
+        age: 18
     }
   
   render() {

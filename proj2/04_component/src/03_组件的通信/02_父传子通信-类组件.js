@@ -4,13 +4,17 @@ function ChildCpn2(props) {
   const { name, age, height } = props
   return <h2>子组件展示数据2: {name + ' ' + age + ' ' + height }</h2>
 }
-// props
+// props 在哪里进行保存的?
+// react-test-renderer  pageckage
+// ReactShallowRenderer
+// 
 class ChildCpn extends Component {
     constructor(props){
         super(props)
+        console.log(this.props) // undefined
     }
     componentDidMount(){
-        console.log(this.props);
+        console.log(this.props); // 有值
     }
     render(){
         const { name, age, height } = this.props;

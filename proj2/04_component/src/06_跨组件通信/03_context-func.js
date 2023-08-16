@@ -18,6 +18,7 @@ function ProfileHeader() {
                         <div>
                             <h2>用户昵称:{value.nickname} </h2>
                             <h2>用户等级:{value.level} </h2>
+                            <h2>用户年龄:{value.age} </h2>
                         </div>
                     )
                 }
@@ -41,7 +42,8 @@ function Profile(props){
 export default class App extends Component {
     state = {
         nickname: 'purple',
-        level: 99
+        level: 99,
+        age: 18
     }
   
   render() {

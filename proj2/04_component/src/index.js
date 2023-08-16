@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from './03_组件的通信/01_组件间的嵌套'
+// import App from './03_组件的通信/05_子传父通信-函数传递'
 // import App from './04_组件通信案例/App';
 // import './04_组件通信案例/style.css';
 
@@ -15,7 +15,7 @@ import App from './03_组件的通信/01_组件间的嵌套'
 
 // import App from './07_setState的使用/01_为什么使用setState.js';
 // import App from './07_setState的使用/02_setState是异步更新';
-// import App from './07_setState的使用/03_setState是同步更新';
+import App from './07_setState的使用/03_setState是同步更新';
 // import App from './07_setState的使用/04_setState数据合并';
 // import App from './07_setState的使用/05_setState本身合并';
 
