@@ -18,6 +18,10 @@ export default class App extends Component {
 
   changeText(){
     // 1. setState 本身被合并
+    // 1.1 do{}white(true) 循环
+    // 1.2 对setState 进行合并
+    // Object.assign({}, prevState, partialState)
+
     // this.setState({
     //   counter: this.state.counter + 1
     // });

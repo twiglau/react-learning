@@ -79,3 +79,53 @@ componentDidMount() {
     })
 }
 ```
+
+## setState 数据合并
+
+```js
+Object.assign({}, prevState, partialState);
+```
+
+## setState 本身合并
+
+- do{}white(true) 循环
+- 对 setState 进行合并
+  > Object.assign({}, prevState, partialState)
+
+## setState 如何累计
+
+```js
+this.setState((prevState, props) => {
+  return {
+    counter: prevState.counter + 1,
+  };
+});
+this.setState((prevState, props) => {
+  return {
+    counter: prevState.counter + 1,
+  };
+});
+```
+
+- 原理：
+
+```js
+if (typeof payload === "function") {
+  if (__DEV__) {
+    enterDisallowedContextReadInDEV();
+    if (
+      debugRenderPhaseSideEffectsForStrictMode &&
+      workInProgress.mode &&
+      StrictMode
+    ) {
+      payload.call(instance, prevState, nextProps);
+    }
+  }
+  partialState = payload.call(instance, prevState, nextProps);
+  if (__DEV__) {
+    exitDisallowedContextReadInDEV();
+  }
+} else {
+  partialState = payload;
+}
+```

@@ -19,10 +19,12 @@ export default class App extends Component {
   }
 
   changeText(){
+    //问题： 会不会把 name 属性 覆盖掉？
+    //源码： Object.assign({}, prevState, partialState);
     this.setState({
       message: 'the data after updated'
-  });
-  // Object.assign({},this.state, {message: 'the data after updated'})
+    });
+    // Object.assign({},this.state, {message: 'the data after updated'})
 
   }
 }

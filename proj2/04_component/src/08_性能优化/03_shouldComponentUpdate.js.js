@@ -16,7 +16,7 @@ export default class App extends Component {
         )
     }
     shouldComponentUpdate(nextProps, nextState){
-        if(this.state.counter != nextState.counter){
+        if(this.state.counter !== nextState.counter){
             return true
         }
         return false;

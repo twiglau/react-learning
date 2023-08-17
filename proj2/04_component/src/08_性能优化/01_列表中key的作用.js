@@ -21,9 +21,11 @@ export default class App extends Component {
     )
   }
   insertMovie(){
+    // 1. 在尾部添加数据
     //   this.setState({
     //       movies:[...this.state.movies, '三体']
     //   })
+    // 2. 在顶部插入数据
     this.setState({
         movies:['明日',...this.state.movies]
     })
