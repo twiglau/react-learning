@@ -5,6 +5,7 @@ import React, { Component, PureComponent } from 'react'
     return (
       <div>
         App: { this.props.name}
+        <br />
       </div>
     )
   }

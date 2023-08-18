@@ -44,7 +44,8 @@ export default class App extends PureComponent {
   }
   handleSubmit(e) {
       e.preventDefault();
-      console.log({e})
+      const { username, password, valid } = this.state
+      console.log(username, password, valid)
   }
   handleChange(e,key) {
       this.setState({

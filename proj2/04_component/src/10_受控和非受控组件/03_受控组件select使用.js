@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react'
 
 export default class App extends PureComponent {
     state = {
-        fruits: 'banana'
+        fruit: 'banana'
     }
   render() {
     return (
@@ -11,7 +11,7 @@ export default class App extends PureComponent {
             <select 
             name="fruits" 
             onChange={e => this.handleChange(e)}
-            value={this.state.fruits}>
+            value={this.state.fruit}>
                 <option value="apple">苹果</option>
                 <option value="banana">香蕉</option>
                 <option value="orange">橘子</option>
@@ -27,7 +27,7 @@ export default class App extends PureComponent {
   }
   handleChange(e) {
       this.setState({
-          fruits:e.target.value
+          fruit:e.target.value
       })
   }
 }

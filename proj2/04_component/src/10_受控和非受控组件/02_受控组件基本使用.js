@@ -23,7 +23,7 @@ export default class App extends PureComponent {
   }
   handleSubmit(e) {
       e.preventDefault();
-      console.log({e})
+      console.log(this.state.username)
   }
   handleChange(e) {
       this.setState({

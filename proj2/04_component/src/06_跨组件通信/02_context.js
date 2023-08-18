@@ -22,6 +22,9 @@ class ProfileHeader extends Component{
         )
     }
 }
+
+// ProfileHeader.contextType = UserContext;
+
 function Profile(props){
     return (
         <div>

@@ -15,7 +15,7 @@ import ReactDOM from 'react-dom';
 
 // import App from './07_setState的使用/01_为什么使用setState.js';
 // import App from './07_setState的使用/02_setState是异步更新';
-import App from './07_setState的使用/03_setState是同步更新';
+// import App from './07_setState的使用/03_setState是同步更新';
 // import App from './07_setState的使用/04_setState数据合并';
 // import App from './07_setState的使用/05_setState本身合并';
 
@@ -41,6 +41,6 @@ import App from './07_setState的使用/03_setState是同步更新';
 // import App from './11_高价组件的使用/05_应用-生命周期劫持'
 
 // import App from './12_组件内容补充/01_ref的转发'
-// import App from './12_组件内容补充/02_portals的使用'
+import App from './12_组件内容补充/02_portals的使用'
 import './css/index.css'
 ReactDOM.render(<App name={'twiglau'} />,document.getElementById('root'));

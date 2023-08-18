@@ -30,6 +30,7 @@ export default class App extends PureComponent {
         <h2 ref="titleRef">Hello React</h2>
         {/*目前react推荐的方式 */}
         <h2 ref={this.titleRef2}>Hello 2</h2>
+        {/*函数方式 */}
         <h2 ref={(arg)=> this.titleEl = arg}>Hello ele</h2>
         <button onClick={e=>this.changeText()}>改变文本</button>
 
@@ -40,14 +41,17 @@ export default class App extends PureComponent {
     )
   }
   hanleClick(){
-      this.counterRef.current.increment()
+    console.log(this)
+    this.counterRef.current.increment()
   }
   changeText(){
-      // 1. 使用方式一: 字符串
+      // 1. 使用方式一: 字符串 （不推荐， 后续的更新会删除)
       this.refs.titleRef.innerHTML = 'Hello react changed'
       // 2. 使用方式二: 对象
+      console.log(this.refs.titleRef)
       this.titleRef2.current.innerHTML = 'Hello 2 changed'
       // 3. 使用方式三: 函数
+      console.log(this.titleEl)
       this.titleEl.innerHTML = 'Hello ele changed'
   }
 }

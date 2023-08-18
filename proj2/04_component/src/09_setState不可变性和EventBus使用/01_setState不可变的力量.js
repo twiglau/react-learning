@@ -22,7 +22,6 @@ export default class App extends PureComponent {
                       年龄: {item.age}
                       <button onClick={e=>this.incrementAge(index)}>age+1</button>
                       </li>
-
                     )
                 })
             }
@@ -44,6 +43,7 @@ export default class App extends PureComponent {
 //     // 在内存中开辟一片内存空间,存放 friends 数组
 //     // friends 是一个引用, 
 //     // friends: 0x100, 通过内存地址 0x100, 找到对应的内存
+//     // 这样比对的是两个内存地址是否一致
 //       if(newState.friends !== this.state.friends){
 //           return true;
 //       }
@@ -51,6 +51,8 @@ export default class App extends PureComponent {
 //   }
   insertData(){
       // 1. 在开发中不要这样来做
+      // 原因： shouldComponentUpdate 做性能优化时，会比对 newProps.friends 与 当前state.friends
+      // 是否发生了变化，只有发生变化时，才会更新
     //   const newData = {name: 'rlande', age: 15}
     //   this.state.friends.push(newData)
     //   this.setState({

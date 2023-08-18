@@ -6,6 +6,7 @@ function getRenderTime(WrappedComponent){
     UNSAFE_componentWillMount(){
       this.beginTime = Date.now();
     }
+    // 渲染完成再获取一个时间 endTime
     componentDidMount(){
       this.endTime = Date.now()
       const interval = this.endTime - this.beginTime;

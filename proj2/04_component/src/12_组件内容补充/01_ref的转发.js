@@ -8,7 +8,8 @@ class Home extends PureComponent {
 
 // 高阶组件
 const Profile = forwardRef(function (props, ref) {
-    return <h2 ref={ref}>Profile</h2>
+    console.log(props.name)
+    return <h2 ref={ref}>Profile {props.name}</h2>
 })
 
 
@@ -22,7 +23,7 @@ export default class App extends PureComponent {
             <div>
                 <h2 ref={this.titleRef}>Hello world</h2>
                 <Home ref={this.homeRef} />
-                <Profile ref={this.profileRef} />
+                <Profile ref={this.profileRef} name={"why"} />
                 <button onClick={e => this.printRef()}>打印Ref</button>
             </div>
         )
