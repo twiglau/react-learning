@@ -41,6 +41,7 @@ import ReactDOM from 'react-dom';
 // import App from './11_高价组件的使用/05_应用-生命周期劫持'
 
 // import App from './12_组件内容补充/01_ref的转发'
-import App from './12_组件内容补充/02_portals的使用'
+// import App from './12_组件内容补充/02_portals的使用'
+import App from './12_组件内容补充/04_strictMode的使用'
 import './css/index.css'
 ReactDOM.render(<App name={'twiglau'} />,document.getElementById('root'));
