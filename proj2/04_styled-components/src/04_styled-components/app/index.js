@@ -1,6 +1,17 @@
 import React, { PureComponent } from 'react'
 import Home from '../home'
 import Profile from '../profile'
+import styled, { ThemeProvider } from 'styled-components'
+const HYButton = styled.button`
+  padding: 10px 20px;
+  color: red;
+`
+
+const HYPrimaryButton = styled.button`
+  padding: 10px 20px;
+  color: #fff;
+  background-color: blue;
+`
 export default class app extends PureComponent {
   render() {
     let a = "lau", b = "school";
@@ -15,11 +26,13 @@ export default class app extends PureComponent {
     // 3. 调用
     test`My name is ${a}, at ${b}`
     return (
-      <div>
+      <ThemeProvider theme={{ themeColor:"yellow", fontSize:"30px"}}>
         <h2>我是app标题</h2>
         <Home />
         <Profile />
-      </div>
+        <HYButton >我是按钮</HYButton>
+        <HYPrimaryButton>Primary 按钮</HYPrimaryButton>
+      </ThemeProvider>
     )
   }
 }
