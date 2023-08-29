@@ -1,28 +1,69 @@
-import React, { PureComponent } from 'react'
 import classNames from 'classnames'
-export default class App extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      isActive: true
-    }
-  }
-  render() {
-    const { isActive } = this.state;
-    return (
-      <div>
-        {/*原生React中添加class方法 */}
-        <h2 className={'foo bar active title'}>我是标题1</h2>
-        <h2 className={ 'title ' + (isActive ? "active":"")}>我是标题2</h2>
-        <h2 className={['title', (isActive ? "active": "")].join(" ")}>我是标题3</h2>
+import { PoweroffOutlined } from '@ant-design/icons';
+import { Button, Space, DatePicker } from 'antd';
+import React, { useState } from 'react';
+import moment from 'moment'
+import HomeRecommend from 'components/home/childCpns/home-recommend'
+const App = () => {
+  const [loadings, setLoadings] = useState([]);
+  const enterLoading = (index) => {
+    setLoadings((prevLoadings) => {
+      const newLoadings = [...prevLoadings];
+      newLoadings[index] = true;
+      return newLoadings;
+    });
+    setTimeout(() => {
+      setLoadings((prevLoadings) => {
+        const newLoadings = [...prevLoadings];
+        newLoadings[index] = false;
+        return newLoadings;
+      });
+    }, 6000);
+  };
+  
+  return (
+    <>
+      <HomeRecommend />
+      <Space
+        style={{
+          width: '100%',
+        }}
+      >
+        <Button type="primary" loading>
+          Loading
+        </Button>
+        <Button type="primary" size="small" loading>
+          Loading
+        </Button>
+        <Button type="primary" icon={<PoweroffOutlined />} loading />
+      </Space>
 
-        {/* classnames库添加class */}
-        <h2 className={classNames("foo", "bar", "active", "title")}>我是标题4</h2>
-        <h2 className={classNames("foo", {"bax":false, "active": isActive})}>我是标题5</h2>
-        <h2>我是标题6</h2>
-        <h2>我是标题7</h2>
-      </div>
-    )
-  }
-}
+      <Space
+        style={{
+          width: '100%',
+        }}
+      >
+        <Button type="primary" loading={loadings[0]} onClick={() => enterLoading(0)}>
+          Click me!
+        </Button>
+        <Button
+          type="primary"
+          icon={<PoweroffOutlined />}
+          loading={loadings[1]}
+          onClick={() => enterLoading(1)}
+        >
+          Click me!
+        </Button>
+        <Button
+          type="primary"
+          icon={<PoweroffOutlined />}
+          loading={loadings[2]}
+          onClick={() => enterLoading(2)}
+        />
+         <DatePicker defaultValue={moment('2015/01/01', 'YYYY/MM/DD')} format={'YYYY/MM/DD'} />
+      </Space>
+    </>
+  );
+};
+export default App;
 
