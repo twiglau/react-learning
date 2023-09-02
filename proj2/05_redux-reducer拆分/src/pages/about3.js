@@ -3,12 +3,12 @@
 
 
 import { connect } from 'react-redux'
-import { addAction, subAction } from '../2-store/actionCreators'
+import { addAction, subAction } from '../2-store/counter/actionCreators'
 function About(props) {
     
     return (
         <div>
-          <h1>About2</h1>
+          <h1>About3</h1>
           <h2>当前计数： {props.counter}</h2>
           <button onClick={e => props.addNumber(5)}>+5</button>
           <button onClick={e => props.subNumber(4)}>-4</button>
@@ -30,9 +30,9 @@ function About(props) {
 
 const mapStateToProps = state => {
   return {
-    counter: state.counter,
-    banners: state.banners,
-    recommends: state.recommends
+    counter: state.counterInfo.counter,
+    banners: state.homeInfo.banners,
+    recommends: state.homeInfo.recommends
   }
 }
 const mapDispatchToProps = dispatch => {

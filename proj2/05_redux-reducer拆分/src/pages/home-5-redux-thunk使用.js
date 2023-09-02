@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import { connect } from 'react-redux'
-import { getHomeMultiDataAction } from '../2-store/actionCreators';
+import { getHomeMultiDataAction } from '../2-store/home/actionCreators';
 class home extends PureComponent {
   
   componentDidMount() {

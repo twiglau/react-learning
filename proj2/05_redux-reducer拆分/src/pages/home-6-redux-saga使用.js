@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 
 import { connect } from 'react-redux'
-import { fetchHomeMultiDataAction } from '../2-store/actionCreators';
+import { fetchHomeMultiDataAction } from '../2-store/home/actionCreators';
 class home extends PureComponent {
   
   componentDidMount() {
@@ -17,7 +17,7 @@ class home extends PureComponent {
 }
 const mapStateToProps = state => {
   return {
-    counter: state.counter
+    counter: state.counterInfo.counter
   }
 }
 const mapDispatchToProps = dispatch => {

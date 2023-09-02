@@ -4,13 +4,13 @@ import React, { PureComponent } from 'react'
 
 // 2. 使用react-redux的connect
 import { connect } from 'react-redux'
-import { incAction, decAction } from '../2-store/actionCreators';
+import { incAction, decAction } from '../2-store/counter/actionCreators';
 class home extends PureComponent {
   
   render() {
     return (
       <div>
-        <h1>Home2</h1>
+        <h1>Home3</h1>
         <h2>当前计数： {this.props.counter}</h2>
         <button onClick={e => this.props.increment()}>+1</button>
         <button onClick={e => this.props.decrement()}>-1</button>
@@ -20,7 +20,7 @@ class home extends PureComponent {
 }
 const mapStateToProps = state => {
   return {
-    counter: state.counter
+    counter: state.counterInfo.counter
   }
 }
 const mapDispatchToProps = dispatch => {

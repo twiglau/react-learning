@@ -4,7 +4,8 @@ import React, { PureComponent } from 'react'
 import axios from 'axios'
 // 2. 使用react-redux的connect
 import { connect } from 'react-redux'
-import { incAction, decAction, changeBannersAction, changeRecommendAction } from '../2-store/actionCreators';
+import { incAction, decAction} from '../2-store/counter/actionCreators';
+import { changeBannersAction, changeRecommendAction } from '../2-store/home/actionCreators'
 class home extends PureComponent {
   
   componentDidMount() {

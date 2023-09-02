@@ -1,8 +1,8 @@
 
 import { takeEvery, takeLatest, put, all } from 'redux-saga/effects'
 import axios from 'axios'
-import { FETCH_HOME_MULTI_DATA } from './constants'
-import { changeBannersAction, changeRecommendAction } from './actionCreators'
+import { FETCH_HOME_MULTI_DATA } from './home/constant'
+import { changeBannersAction, changeRecommendAction } from './home/actionCreators'
 
 function* fetchHomeMultiData(action) {
     const res = yield axios.get("http://123.207.32.32:8000/home/multidata");

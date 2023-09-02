@@ -1,21 +1,5 @@
-import { Add_NUMBER, SUB_NUMBER, INCREMENT, DECREMENT, CHANGE_BANNERS, CHANGE_RECOMMEND, FETCH_HOME_MULTI_DATA } from './constants'
+import { CHANGE_BANNERS, CHANGE_RECOMMEND, FETCH_HOME_MULTI_DATA } from './constant'
 import axios from 'axios'
-
-export const addAction = num=> ({
-    type: Add_NUMBER,
-    num
-})
-export const subAction = num => ({
-    type: SUB_NUMBER,
-    num
-})
-export const incAction = () => ({
-    type: INCREMENT
-})
-export const decAction = () => ({
-    type: DECREMENT
-})
-
 
 // 轮播图和推荐
 export const changeBannersAction = (banners) => ({
