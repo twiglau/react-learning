@@ -8,6 +8,7 @@ import Home from './pages/home-3-react-redux-connect'
 import About from './pages/about3'
 // import HomeAsync from './pages/home-4-常规异步操作'
 import HomeThunk from './pages/home-5-redux-thunk使用'
+import HomeSaga from './pages/home-6-redux-saga使用'
 const App = () => {
   return (
     <div>
@@ -15,7 +16,8 @@ const App = () => {
       <Home />
       <About />
       {/* <HomeAsync /> */}
-      <HomeThunk />
+      {/* <HomeThunk /> */}
+      <HomeSaga />
     </div>
   );
 };

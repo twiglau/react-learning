@@ -1,5 +1,7 @@
 import { legacy_createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
+import saga from './saga'
 import reducer from './reducer';
 
 const composeEnhancers =
@@ -9,8 +11,10 @@ const composeEnhancers =
       })
     : compose;
 
+// 创建sagaMiddleware中间件
+const sagaMiddleware = createSagaMiddleware();
 const enhancer = composeEnhancers(
-  applyMiddleware(thunkMiddleware),
+  applyMiddleware(thunkMiddleware, sagaMiddleware),
   // other store enhancers if any
 );
 // 应用一些中间件
@@ -19,5 +23,7 @@ const enhancer = composeEnhancers(
 
 
 const store = legacy_createStore(reducer,enhancer);
+
+sagaMiddleware.run(saga)
 
 export default store;
