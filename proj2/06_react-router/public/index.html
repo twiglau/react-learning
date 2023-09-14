@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <title>React App</title>
+  </head>
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
+    <hr />
+    <h4>1. 监听hash的改变：</h4>
+    <div>
+      <h4>下面两个a标签：</h4>
+      <div><a href="#/home">首页</a><a href="#/about">关于</a></div>
+      <div class="router-view1"></div>
+    </div>
+    <hr />
+    <h4>2. 监听history的改变：</h4>
+    <div>
+      <h4>下面两个a标签：</h4>
+      <div><a class="router-a" href="/home">首页</a><a href="/about" class="router-a">关于</a></div>
+      <div class="router-view2"></div>
+    </div>
+
+    <script>
+      // 获取router-view的DOM
+      const routerViewEl1 = document.getElementsByClassName("router-view1")[0];
+      // 监听URL的改变
+      window.addEventListener("hashchange", () => {
+        console.log("hashChange: ", location.hash)
+        switch(location.hash) {
+          case "#/home":
+          routerViewEl1.innerHTML = "这是首页内容1";
+            break;
+          case "#/about":
+          routerViewEl1.innerHTML = "这是关于内容1";
+            break;
+          default:
+          routerViewEl1.innerHTML = "";
+        }
+      })
+
+      // 获取router-view的DOM
+      const routerViewEl2 = document.getElementsByClassName("router-view2")[0];
+
+      // 获取所有的a元素，自己来监听a元素的改变
+      const aEle = document.getElementsByClassName("router-a");
+      for(let el of aEle) {
+        el.addEventListener("click", e => {
+          e.preventDefault();
+          const href = el.getAttribute("href");
+          if(href.indexOf("#") > -1) return
+          history.pushState({}, "", href)
+          urlChange(href)
+        })
+      }
+
+      // 执行返回操作时，依然来到urlchange
+      window.addEventListener("popstate", urlChange)
+      window.addEventListener("go", urlChange)
+      window.addEventListener("pushstate", urlChange)
+
+      // 监听URL改变
+      function urlChange() {
+        console.log("historyChange: ", location.pathname)
+        switch(location.pathname) {
+          case "/home":
+          routerViewEl2.innerHTML = "这是首页内容2";
+            break;
+          case "/about":
+          routerViewEl2.innerHTML = "这是关于内容2";
+            break;
+          default:
+          routerViewEl2.innerHTML = "";
+        }
+      }
+    </script>
+  </body>
+</html>

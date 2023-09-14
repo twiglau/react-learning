@@ -1,0 +1,13 @@
+a.active {
+    color: red;
+}
+a {
+    padding: 20px 20px;
+}
+a.link-active {
+    color: blue;
+    text-decoration: line-through;
+}
+a.about-active {
+    color: pink;
+}
