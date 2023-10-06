@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import apiClient from "./apiClient";
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default (id) => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);

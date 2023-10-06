@@ -26,5 +26,5 @@ export default class Counter extends PureComponent {
     this.setState({
         counter: this.state.counter - 1
     })
-}
+  }
 }

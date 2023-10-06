@@ -9,12 +9,14 @@ import { createContext, useState } from 'react';
 // import FuncModifyTitle from './03_useEffect使用/02_hook实现title的修改'
 // import EffectCancelDemo from './03_useEffect使用/03_模拟订阅和取消订阅'
 // import MultiEffectHookDemo from './03_useEffect使用/04_多useEffect一起使用'
+// import TimeIntervalDemo from './03_useEffect/05_定时器使用'
+// import Counter from './03_useEffect/07_把函数移到Effects里'
 // import ContextHookDemo from './04_useContext使用/01_useContext的使用';
 
 // import Home from './05_useReducer的使用/Home';
 // import Profile from './05_useReducer的使用/Profile';
 // import CallbackDemo1 from './06_useCallback使用/01_不能进行的性能优化';
-// import CallbackDemo2 from './06_useCallback使用/02_可以进行的性能优化';
+import CallbackDemo2 from './06_useCallback使用/02_useCallback可以进行的性能优化';
 
 // import MemoHookDemo1 from './07_useMemo使用/01_复杂计算的应用';
 // import MemoHookDemo2 from './07_useMemo使用/02_传入子组件引用类型';
@@ -33,7 +35,7 @@ import { createContext, useState } from 'react';
 // import CustomHookLifeDemo1 from './11_自定义Hook/01_认识自定义hook';
 // import CustomContextShareHook from './11_自定义Hook/02_练习-context共享';
 // import CustomContextScrollPos from './11_自定义Hook/03_练习-获取滚动位置';
-import CustomDateStore from './11_自定义Hook/04_练习-localStorage存储'
+// import CustomDateStore from './11_自定义Hook/04_练习-localStorage存储'
 
 
 export const UserContext = createContext();
@@ -57,6 +59,8 @@ function App() {
       {/* {show && <EffectCancelDemo />} */}
       {/* {show && <MultiEffectHookDemo />} */}
 
+      {/* <Counter /> */}
+
       {/**4. useContext */}
       {/* <UserContext.Provider value={{name:'why', age: 18}}>
         <ThemeContext.Provider value={{fontSize: '30px', color: 'red'}}>
@@ -71,7 +75,7 @@ function App() {
 
       {/**6. useCallback */}
       {/* <CallbackDemo1 /> */}
-      {/* <CallbackDemo2 /> */}
+      <CallbackDemo2 />
 
       {/**7. useMemo */}
       {/* <MemoHookDemo1 /> */}
@@ -97,7 +101,7 @@ function App() {
        </TokenContext.Provider>
      </UserContext.Provider> */}
      {/* <CustomContextScrollPos /> */}
-     <CustomDateStore />
+     {/* <CustomDateStore /> */}
 
       <button onClick={e => setShow(!show)}>切换</button>
     </div>
