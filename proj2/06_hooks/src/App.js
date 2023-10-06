@@ -16,10 +16,10 @@ import { createContext, useState } from 'react';
 // import Home from './05_useReducer的使用/Home';
 // import Profile from './05_useReducer的使用/Profile';
 // import CallbackDemo1 from './06_useCallback使用/01_不能进行的性能优化';
-import CallbackDemo2 from './06_useCallback使用/02_useCallback可以进行的性能优化';
+// import CallbackDemo2 from './06_useCallback使用/02_useCallback可以进行的性能优化';
 
-// import MemoHookDemo1 from './07_useMemo使用/01_复杂计算的应用';
-// import MemoHookDemo2 from './07_useMemo使用/02_传入子组件引用类型';
+import MemoHookDemo1 from './06_useCallback使用/01_useMemo复杂计算的应用';
+// import MemoHookDemo2 from './06_useCallback使用/02_useMemo传入子组件引用类型';
 
 
 // import RefHookDemo1 from './08_useRef的使用/01_引用DOM';
@@ -75,10 +75,10 @@ function App() {
 
       {/**6. useCallback */}
       {/* <CallbackDemo1 /> */}
-      <CallbackDemo2 />
+      {/* <CallbackDemo2 /> */}
 
       {/**7. useMemo */}
-      {/* <MemoHookDemo1 /> */}
+      <MemoHookDemo1 />
       {/* <MemoHookDemo2 /> */}
 
       {/**8. useRef */}
