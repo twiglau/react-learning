@@ -18,12 +18,12 @@ import { createContext, useState } from 'react';
 // import CallbackDemo1 from './06_useCallback使用/01_不能进行的性能优化';
 // import CallbackDemo2 from './06_useCallback使用/02_useCallback可以进行的性能优化';
 
-import MemoHookDemo1 from './06_useCallback使用/01_useMemo复杂计算的应用';
+// import MemoHookDemo1 from './06_useCallback使用/01_useMemo复杂计算的应用';
 // import MemoHookDemo2 from './06_useCallback使用/02_useMemo传入子组件引用类型';
 
 
-// import RefHookDemo1 from './08_useRef的使用/01_引用DOM';
-// import RefHookDemo2 from './08_useRef的使用/02_引用其他数据'
+// import RefHookDemo1 from './07_useRef的使用/01_引用DOM';
+import RefHookDemo2 from './07_useRef的使用/02_引用其他数据'
 
 // import ForwardRefDemo from './09_useImperativeHandle/01_forwardRef的用法';
 // import ImperativeHandleDemo from './09_useImperativeHandle/02_useImperativeHandle用法';
@@ -41,6 +41,7 @@ import MemoHookDemo1 from './06_useCallback使用/01_useMemo复杂计算的应�
 export const UserContext = createContext();
 export const ThemeContext = createContext();
 export const TokenContext = createContext();
+
 function App() {
   const [show, setShow] = useState(true)
   return (
@@ -78,12 +79,12 @@ function App() {
       {/* <CallbackDemo2 /> */}
 
       {/**7. useMemo */}
-      <MemoHookDemo1 />
+      {/* <MemoHookDemo1 /> */}
       {/* <MemoHookDemo2 /> */}
 
       {/**8. useRef */}
       {/* <RefHookDemo1 /> */}
-      {/* <RefHookDemo2 /> */}
+      <RefHookDemo2 />
 
       {/**9. useImperativeHandle */}
       {/* <ForwardRefDemo /> */}

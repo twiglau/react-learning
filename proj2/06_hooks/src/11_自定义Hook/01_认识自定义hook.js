@@ -26,7 +26,7 @@ function useLoggingLife(name){
     useEffect(() => {
         console.log(`${name} 组件被创建出来了`)
         return () => {
-            console.log(`${name} 组件被销毁了`);
+            console.log(`${name} 组件被销毁了`)
         }
     }, []);
 

@@ -6,5 +6,4 @@ function useUserContext(){
     return [user, token];
 }
 
-
 export default useUserContext;

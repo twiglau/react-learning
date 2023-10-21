@@ -19,14 +19,15 @@ export default function RefHookDemo1() {
         titleRef.current.innerHTML = "Hello world"
         inputRef.current.focus();
         console.log(testRef.current);
+        console.log(test2Ref.current);
     }
-  return (
-    <div>
-      <h2 ref={titleRef}>Demo1</h2>
-      <input ref={inputRef} />
-      <TestCpn ref={testRef} />
-      <TestCpn2 ref={test2Ref} />
-      <button onClick={e => changeDOM()}>修改DOM</button>
-    </div>
-  )
+    return (
+      <div>
+        <h2 ref={titleRef}>Demo1</h2>
+        <input ref={inputRef} />
+        <TestCpn ref={testRef} />
+        <TestCpn2 ref={test2Ref} />
+        <button onClick={e => changeDOM()}>修改DOM</button>
+      </div>
+    )
 }
