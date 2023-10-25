@@ -1,16 +1,12 @@
 import React, { memo, useEffect } from 'react'
 import { getTopBannerAction } from './store/actionCreators'
-import { createSelectorHook, useDispatch, useSelector } from 'react-redux'
+import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 const Recommend = memo(() => {
 
-    const getRecommendState = createSelectorHook(
-        state => state.recommend,
-        ({topBanners}) => topBanners,
-    );
-    //TODO: useSelector 更换写法了
+    //TODO: https://blog.cjw.design/blog/frontend/react-redux
     const {topBanners} = useSelector(state => ({
         topBanners: state.recommend.topBanners
-    }))
+    }), shallowEqual)
     const dispatch = useDispatch()
     
 
