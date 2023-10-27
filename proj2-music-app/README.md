@@ -1,6 +1,6 @@
 # 使用 TODO 查看所有注释
 
-# redux-thunk 使用
+## redux-thunk 使用
 
 1. 组件中某段代码 发送网络请求
 
@@ -13,7 +13,7 @@ userEffect;
 1) thunk 后，
 2) 发送某个 对应 dispatch
 
-# redux hook 的使用
+## redux hook 的使用
 
 - 组件和 redux 关联： 获取数据和进行操作
 
@@ -98,3 +98,61 @@ const { topBanners } = useSelector((state) => ({
     );
   };
   ```
+
+## 数据可变引起的问题
+
+- 在 React 开发中，我们总是强调数据的不可变性：
+  无论是类组件中的 state,还是 redux 中管理的 state;
+  事实上在整个 JavaScript 编码过程中，数据的不可变性都是非常重要的；
+
+- 数据的可变性引发的问题（案例）
+
+```js
+const info - {
+  name: "why",
+  age: 20
+}
+
+const obj = info;
+info.name = "kobe";
+
+console.log(obj.name); // kobe
+```
+
+原因非常简单， 对象是引用类型，它们指向同一块内存空间，两个引用都可以任意修改；
+
+- 如何解决该问题？
+
+1. `const obj = {...info}` 对 对象进行拷贝即可： Object.assign 或扩展运算符
+   从代码的角度来说，没有问题，也解决了我们实际开发中一些潜在风险；
+   从性能的角度来说，有问题，如果对象过于庞大，这种拷贝的方式会带来性能问题以及内存浪费；
+
+2. 在 JavaScript 保持数据不可变性，库 `ImmutableJS`
+
+## ImmutableJS https://immutable-js.com/
+
+- 为了解决上面的问题，出现了 Immutable 对象的概念：
+  Immutable 对象的特点是只要修改了对象，就会返回一个新的对象，旧的对象不会发生改变；
+- 但是这样的方式就不会浪费内存了？
+  为了节约内存，又出现了一个新的算法： Persistent Data Structure (持久化数据结构 或 一致性数据结构)
+- 当然，我们听到持久化第一反应应该是数据被保存到本地或数据库，但是这里并不是这个含义：
+  用一种数据结构来保存数据
+  当数据被修改时，会返回一个对象，但是新的对象会尽可能的利用之前的数据结构而不会对内存造成浪费；
+- 如何做到这一点？ 结构共享
+
+## Redux 引入 ImmutableJS 目的：
+
+- 每次状态更新都需要进入操作
+
+```js
+function reducer(state = defaultState, action) {
+  switch(action.type) {
+    case actionTypes.CHANGE_TOP_BANNERS:
+      // 每次更新 对原state进行拷贝，如果state数据量巨大
+      // 相对来说，该操作，性能就会底下
+      return {...state, topBanners: action.topBanners}
+    ...
+  }
+}
+
+```
