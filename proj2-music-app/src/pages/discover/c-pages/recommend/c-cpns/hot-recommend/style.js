@@ -5,5 +5,6 @@ export const HotRecommendWrapper = styled.div`
     .recommend-list {
         display: flex;
         flex-flow:wrap row;
+        justify-content: space-between;
     }
 `
