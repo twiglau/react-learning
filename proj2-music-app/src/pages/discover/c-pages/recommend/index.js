@@ -1,9 +1,13 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 
 import {
-    RecommendWrapper
+    RecommendWrapper,
+    Content,
+    RecommendLeft,
+    RecommendRight
 } from './style'
 import TopBanner from './c-cpns/top-banner'
+import HotRecommend from './c-cpns/hot-recommend'
 const Recommend = memo(() => {
 
     
@@ -11,6 +15,12 @@ const Recommend = memo(() => {
     return (
         <RecommendWrapper>
             <TopBanner />
+            <Content>
+                <RecommendLeft>
+                    <HotRecommend />
+                </RecommendLeft>
+                <RecommendRight></RecommendRight>
+            </Content>
         </RecommendWrapper>
     )
 })
