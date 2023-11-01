@@ -81,9 +81,10 @@ button {
 }
 
 .text-nowrap {
-  white-space: nowrap;
-  text-overflow: ellipsis;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
 }
 
 .wrap-v1 {
@@ -127,7 +128,9 @@ button {
 .sprite_table {
   background: url(../img/sprite_table.png) no-repeat 0 9999px;
 }
-
+.sprite_playbar {
+  background: url(../img/playbar_sprite.png) no-repeat 0 9999px;
+}
 .image_cover {
   position: absolute;
   left: 0;

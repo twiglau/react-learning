@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react'
+import React, { memo, useEffect, useMemo, useRef } from 'react'
 import { getNewAlbumAction } from '../../store/actionCreators'
 import ThemeHeaderRCM from '@/components/theme-header-rcm'
 import AlbumCover from '@/components/album-cover'
@@ -15,7 +15,22 @@ const NewAlbum = memo(() => {
   useEffect(()=> {
     dispatch(getNewAlbumAction(10))
   }, [dispatch])
+
   
+  const pageArrays = useMemo(()=> {
+    // 每页5条数据
+    let temps = newAlbums.reduce((prev,curr) => {
+      const len = prev.length
+      let sub = prev[len - 1] // 取最后一个判断
+      if(len && sub.length < 5) {
+        prev[len - 1].push(curr)
+      } else {
+        prev.push([curr])
+      }
+      return prev
+   }, [])
+   return temps
+  }, [newAlbums])
   return (
     <AlbumWrapper>
         <ThemeHeaderRCM title="新碟上架" />
@@ -24,16 +39,16 @@ const NewAlbum = memo(() => {
           <div className='album'>
             <Carousel dots={false} ref={pageRef}>
               {
-                [0,1,2,3,4,5,6,7,8,9].map(item => {
+                pageArrays.map((item,index) => {
                   return (
-                    <div key={item} className='page'>
+                    <div key={index} className='page'>
                       {
-                        newAlbums.slice(item*5, (item + 1)*5).map(ele => {
-                          return <AlbumCover key={ele.id} 
-                                             info={ele} 
-                                             size={100} 
-                                             width={118} 
-                                             bgp="-570px" />
+                        item.map(ele => {
+                          return <AlbumCover key={ele.id}
+                                             info={ele}
+                                             size={100}
+                                             width={118}
+                                             bgp="-570px"/>
                         })
                       }
                     </div>

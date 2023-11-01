@@ -26,9 +26,19 @@ export function getNewAlbums(limit) {
 
 export function getTopList(idx) {
   return request({
-    url: "/top/list",
+    url: "/playlist/detail",
     params: {
-      idx
+      id:idx
+    }
+  })
+}
+
+export function getArtistList(limit, cat) {
+  return request({
+    url: "/artist/list",
+    params: {
+      cat,
+      limit
     }
   })
 }
