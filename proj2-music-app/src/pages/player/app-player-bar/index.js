@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useRef } from 'react'
+import React, { memo, useEffect, useRef, useState } from 'react'
 import { Slider } from 'antd'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import { getSongDetailAction } from '../store/actionCreators'
@@ -10,6 +10,8 @@ import {
     Operator
 } from './style'
 const AppPlayerBar = memo(() => {
+  // props 和 state
+  const [currentTime, setCurrentTime ] = useState(0)
 
   const {currentSong} = useSelector(state => ({
     currentSong: state.getIn(['player','currentSong'])
@@ -26,11 +28,15 @@ const AppPlayerBar = memo(() => {
   const singer = currentSong && currentSong.ar && currentSong.ar.length && currentSong.ar[0].name
   const duration = currentSong.dt || 0
   const showDuration = formatMinuteSecond(duration)
+  const showCurrentTime = formatMinuteSecond(currentTime)
 
   // hanlde function
   const playMusic = ()=> {
     audioRef.current.src = getPlaySong(currentSong.id)
     audioRef.current.play()
+  }
+  const updateTime = (e) => {
+    setCurrentTime(e.target.currentTime*1000)
   }
   return (
     <PlayerBarWrapper className='sprite_playbar'>
@@ -54,7 +60,7 @@ const AppPlayerBar = memo(() => {
                     <div className='progress'>
                         <Slider  defaultValue={30}/>
                         <div className='time'>
-                            <span className='now-time'>1:30</span>
+                            <span className='now-time'>{showCurrentTime}</span>
                             <span className='divider'>/</span>
                             <span>{showDuration}</span>
                         </div>
@@ -73,7 +79,7 @@ const AppPlayerBar = memo(() => {
                 </div>
             </Operator>
         </div>
-        <audio ref={audioRef} />
+        <audio ref={audioRef} onTimeUpdate={e => updateTime(e)} />
     </PlayerBarWrapper>
   )
 })
