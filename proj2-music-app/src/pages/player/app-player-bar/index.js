@@ -2,7 +2,11 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { Slider } from 'antd'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
-import { getSongDetailAction, changeSequenceAction } from '../store/actionCreators'
+import { 
+  getSongDetailAction, 
+  changeSequenceAction, 
+  changeCurrentSong
+} from '../store/actionCreators'
 import { getSizeImage, formatMinuteSecond, getPlaySong } from '@/utils/format-utils'
 import { 
     PlayerBarWrapper,
@@ -82,14 +86,17 @@ const AppPlayerBar = memo(() => {
       }
       dispatch(changeSequenceAction(currentSequence))
   }
+  const changeMusic = (tag) => {
+      dispatch(changeCurrentSong(tag))
+  }
 
   return (
     <PlayerBarWrapper className='sprite_playbar'>
         <div className='content wrap-v2'>
             <Control isPlaying={isPlaying}>
-                <button className='sprite_playbar prev'></button>
+                <button className='sprite_playbar prev' onClick={e => changeMusic(-1)}></button>
                 <button className='sprite_playbar play' onClick={e => playMusic()}></button>
-                <button className='sprite_playbar next'></button>
+                <button className='sprite_playbar next' onClick={e => changeMusic(1)}></button>
             </Control>
             <PlayInfo>
                 <div className='image'>

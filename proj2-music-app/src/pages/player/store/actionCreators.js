@@ -1,6 +1,7 @@
 
 import { getSongDetail } from '@/services/player'
 import * as actionTypes from './constants'
+import { getRandomNumber } from '@/utils/math-utils'
 const changeCurrentSongAction = (currentSong) => ({
     type: actionTypes.CHANGE_CURRENT_SONG,
     currentSong
@@ -17,6 +18,27 @@ export const changeSequenceAction = (sequence) => ({
     type: actionTypes.CHANGE_SEQUENCE,
     sequence
 })
+export const changeCurrentSong = (tag) => {
+    return (dispatch, getState) => {
+        const playList = getState().getIn(['player', 'playerList'])
+        const sequence = getState().getIn(['player', 'sequence'])
+        let  currentSongIndex = getState().getIn(['player', 'currentSongIndex'])
+        switch(sequence) {
+            case 1: // 随机播放
+              let randomIndex =  getRandomNumber(playList.length)
+              while(randomIndex === currentSongIndex) randomIndex = getRandomNumber(playList.length)
+              currentSongIndex = randomIndex
+              break
+            default: // 顺序播放
+               currentSongIndex += tag;
+               if(currentSongIndex >= playList.length)  currentSongIndex = 0
+               if(currentSongIndex < 0) currentSongIndex = playList.length - 1
+        }
+        const currentSong = playList[currentSongIndex]
+        dispatch(changeCurrentSongAction(currentSong))
+        dispatch(changeCurrentSongIndexAction(currentSongIndex))
+    }
+}
 export const getSongDetailAction = (ids) => {
     return (dispatch, getState) => {
         // 1. 根据id查找playlist中是否已经有了该歌曲
