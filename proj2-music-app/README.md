@@ -156,3 +156,21 @@ function reducer(state = defaultState, action) {
 }
 
 ```
+
+## 打包 - 某个大 JS 文件拆解
+
+1. 每个路由都是一个独立的 JS 文件
+
+```js
+const Album = React.lazy((_) => import("@/pages/discover/c-pages/album"));
+```
+
+2. 注意:如果使用懒加载, 需要`Suspense`组件搭配使用,在 app.js 中
+
+```js
+<Suspense fallback={<div>Page Loading...</div>}>
+  {renderRoutes(routes)}
+</Suspense>
+```
+
+## 项目发布

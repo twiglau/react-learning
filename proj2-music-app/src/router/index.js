@@ -1,17 +1,30 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-import Discover from '@/pages/discover';
-import Friend from '@/pages/friend';
-import Mine from '@/pages/mine';
 
-import Album from '@/pages/discover/c-pages/album'
-import Artist from '@/pages/discover/c-pages/artist'
-import Djradio from '@/pages/discover/c-pages/djradio'
-import Ranking from '@/pages/discover/c-pages/ranking'
-import Recommend from '@/pages/discover/c-pages/recommend'
-import Songs from '@/pages/discover/c-pages/songs'
-import Player from '@/pages/player'
+const Discover = React.lazy(_ => import('@/pages/discover'))
+const Friend = React.lazy(_ => import('@/pages/friend'))
+const Mine = React.lazy(_ => import('@/pages/mine'))
+
+
+const Album = React.lazy(_ => import('@/pages/discover/c-pages/album'))
+const Artist = React.lazy(_ => import('@/pages/discover/c-pages/artist'))
+const Djradio = React.lazy(_ => import('@/pages/discover/c-pages/djradio'))
+const Ranking = React.lazy(_ => import('@/pages/discover/c-pages/ranking'))
+const Recommend = React.lazy(_ => import('@/pages/discover/c-pages/recommend'))
+const Songs = React.lazy(_ => import('@/pages/discover/c-pages/songs'))
+const Player = React.lazy(_ => import('@/pages/player'))
+// import Discover from '@/pages/discover';
+// import Friend from '@/pages/friend';
+// import Mine from '@/pages/mine';
+
+// import Album from '@/pages/discover/c-pages/album'
+// import Artist from '@/pages/discover/c-pages/artist'
+// import Djradio from '@/pages/discover/c-pages/djradio'
+// import Ranking from '@/pages/discover/c-pages/ranking'
+// import Recommend from '@/pages/discover/c-pages/recommend'
+// import Songs from '@/pages/discover/c-pages/songs'
+// import Player from '@/pages/player'
 const routes = [
    {
     path:'/',
