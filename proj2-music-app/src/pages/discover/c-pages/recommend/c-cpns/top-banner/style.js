@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const BannerWrapper = styled.div`
+export const BannerWrapper = styled.div.withConfig({
+  shouldForwardProp: prop => !['bgImage'].includes(prop)
+})`
   background: url(${props => props.bgImage}) center center/6000px;
 
   .banner {

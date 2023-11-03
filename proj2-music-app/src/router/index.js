@@ -11,7 +11,7 @@ import Djradio from '@/pages/discover/c-pages/djradio'
 import Ranking from '@/pages/discover/c-pages/ranking'
 import Recommend from '@/pages/discover/c-pages/recommend'
 import Songs from '@/pages/discover/c-pages/songs'
-import Player from '@/pages/discover/c-pages/player'
+import Player from '@/pages/player'
 const routes = [
    {
     path:'/',

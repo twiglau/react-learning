@@ -22,7 +22,9 @@ export const PlayerBarWrapper = styled.div`
 `;
 
 
-export const Control = styled.div`
+export const Control = styled.div.withConfig({
+  shouldForwardProp: prop => !['isPlaying'].includes(prop)
+})`
   display: flex;
   align-items: center;
 
@@ -107,7 +109,9 @@ export const PlayInfo = styled.div`
   }
 `
 
-export const Operator = styled.div`
+export const Operator = styled.div.withConfig({
+  shouldForwardProp: prop => !['sequence'].includes(prop)
+})`
    display: flex;
    position: relative;
    top: 5px;
@@ -131,7 +135,18 @@ export const Operator = styled.div`
         background-position: -2px -248px;
     }
     .loop {
-        background-position: -3px -344px;
+        background-position:${props => {
+          switch(props.sequence) {
+            case 0:
+              return ' -3px -344px';
+            case 1:
+              return ' -66px -248px';
+            case 2:
+              return ' -66px -344px';
+            default:
+              return '0'
+          }
+        }};
     }
     .playlist {
         padding-left: 18px;

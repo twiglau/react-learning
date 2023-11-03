@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import { hotRadios } from '@/common/local-data'
 import ThemeHeaderSmall from '@/components/theme-header-small'                                        
 import { AnchorWrapper } from './style'

@@ -19,7 +19,7 @@ const NewAlbum = memo(() => {
   
   const pageArrays = useMemo(()=> {
     // 每页5条数据
-    let temps = newAlbums.reduce((prev,curr) => {
+    let temps = (newAlbums || []).reduce((prev,curr) => {
       const len = prev.length
       let sub = prev[len - 1] // 取最后一个判断
       if(len && sub.length < 5) {

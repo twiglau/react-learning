@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
-export const AlbumWrapper = styled.div`
+export const AlbumWrapper = styled.div.withConfig({
+  shouldForwardProp: prop => !['width','size','bgp'].includes(prop)
+})`
   width: ${props => props.width + "px"};
 
   .album-image {

@@ -1,12 +1,17 @@
 import React, { memo, useMemo } from 'react'
-import { getSizeImage } from '@/utils/format-utils'
+import { useDispatch } from 'react-redux'
+import { getSongDetailAction } from '@/pages/player/store'
 import { TopRankingWrapper } from './style'
 const TopRanking = memo((props) => {
+  // props and state
   const { info } = props
+
+  // redux hooks
+  const dispatch = useDispatch()
   const items = useMemo(()=> {
-    const tracks = info.tracks
     let items
-    if(tracks) {
+    if(info && info.tracks) {
+        const tracks = info.tracks
         let len = tracks.length > 10 ? 10 : tracks.length
         items = tracks.slice(0, len)
     } else {
@@ -14,15 +19,21 @@ const TopRanking = memo((props) => {
     }
     return items
   }, [info])
+
+  // other handle
+  const playMusic = (item) => {
+    console.log(item.id);
+    dispatch(getSongDetailAction(item.id))
+  }
   return (
     <TopRankingWrapper>
         <div className='header'>
            <div className='image'>
-            <img src={info.coverImgUrl} alt='' />
+            <img src={info && info.coverImgUrl} alt='' />
             <a href='/todo' className='image_cover'>Ranking</a>
            </div>
            <div className='info'>
-            <a href='/todo'>{info.name}</a>
+            <a href='/todo'>{info && info.name}</a>
             <div>
                 <button className='btn play sprite_02'></button>
                 <button className='btn favor sprite_02'></button>
@@ -38,7 +49,7 @@ const TopRanking = memo((props) => {
                             <div className='info'>
                                 <span className='name text-nowrap'>{item.name}</span>
                                 <div className='operate'>
-                                    <button className='btn sprite_02 play'></button>
+                                    <button className='btn sprite_02 play' onClick={e => playMusic(item)}></button>
                                     <button className='btn sprite_icon2 addto'></button>
                                     <button className='btn sprite_02 favor'></button>
                                 </div>
