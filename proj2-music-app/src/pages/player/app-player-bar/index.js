@@ -86,7 +86,7 @@ const AppPlayerBar = memo(() => {
   return (
     <PlayerBarWrapper className='sprite_playbar'>
         <div className='content wrap-v2'>
-            <Control isplaying={isPlaying.toString()}>
+            <Control isPlaying={isPlaying}>
                 <button className='sprite_playbar prev'></button>
                 <button className='sprite_playbar play' onClick={e => playMusic()}></button>
                 <button className='sprite_playbar next'></button>
@@ -116,7 +116,7 @@ const AppPlayerBar = memo(() => {
                     </div>
                 </div>
             </PlayInfo>
-            <Operator sequence={sequence.toString()}>
+            <Operator sequence={sequence}>
                 <div className='left'>
                     <button className='sprite_playbar btn favor'></button>
                     <button className='sprite_playbar btn share'></button>

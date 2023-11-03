@@ -138,11 +138,11 @@ export const Operator = styled.div.withConfig({
         background-position:${props => {
           switch(props.sequence) {
             case 0:
-              return ' -3px -344px';
+              return '-3px -344px';
             case 1:
-              return ' -66px -248px';
+              return '-66px -248px';
             case 2:
-              return ' -66px -344px';
+              return '-66px -344px';
             default:
               return '0'
           }
