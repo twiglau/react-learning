@@ -3,13 +3,37 @@
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
 			<text class="title">{{count}}</text>
+			<text>{{userId}}</text>
+		</view>
+		<view>
+			<u-button
+			    text="默认按钮"
+			    size="normal"
+				type="success"
+				@click="btnClick"
+			></u-button>
+			<u-button
+				text="危险按钮"
+				size="normal"
+				type="error"
+				@click="btnClick"
+			></u-button>
 		</view>
 	</view>
 </template>
 
 <script setup>
-	import { ref } from 'vue'
+	import { computed, ref } from 'vue'
+	import { login } from '@/api/user'
+	import { useStore } from 'vuex'
+	
+	const store = useStore()
+	const userId = computed(() => store.state.user.userId)
 	const count = ref(10)
+	const btnClick = async () => {
+		const res = await login()
+		console.log('res: ', res)
+	}
 </script>
 
 <style>

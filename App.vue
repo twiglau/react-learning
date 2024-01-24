@@ -14,4 +14,14 @@
 
 <style>
 	/*每个页面公共css */
+	uni-button:after {
+	    content: ' ';
+	    width: 200%;
+	    height: 200%;
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    border: none !important;
+	    border-radius: 0 !important;
+	}
 </style>
