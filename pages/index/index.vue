@@ -3,7 +3,7 @@
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
 			<text class="title">{{count}}</text>
-			<text>{{userId}}</text>
+			<text class="u-id">{{userId}}</text>
 		</view>
 		<view>
 			<u-button
@@ -19,47 +19,31 @@
 				@click="btnClick"
 			></u-button>
 		</view>
+		<test ref="testRef" />
 	</view>
 </template>
 
 <script setup>
-	import { computed, ref } from 'vue'
+	import Test from '@/components/test'
+	import { computed, getCurrentInstance, ref } from 'vue'
 	import { login } from '@/api/user'
 	import { useStore } from 'vuex'
-	
+	const instance = getCurrentInstance()
 	const store = useStore()
 	const userId = computed(() => store.state.user.userId)
 	const count = ref(10)
+	const testRef = ref(null)
+	const uidColor = ref('red')
 	const btnClick = async () => {
 		const res = await login()
 		console.log('res: ', res)
+		uidColor.value = 'blue'
+		console.log('value:', instance.vnode.el.parentElement?.removeChild(instance.vnode.el))
 	}
 </script>
 
-<style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
+<style lang="scss">
+	.u-id {
+		color: v-bind(uidColor);
 	}
 </style>

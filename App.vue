@@ -12,7 +12,7 @@
 	}
 </script>
 
-<style>
+<style lang="scss">
 	/*每个页面公共css */
 	uni-button:after {
 	    content: ' ';
@@ -23,5 +23,12 @@
 	    left: 0;
 	    border: none !important;
 	    border-radius: 0 !important;
+	}
+	page {
+		background-color: $uni-bg-color;
+	}
+	.container {
+		background-color: $uni-bg-color !important;
+		min-height: 100vh;
 	}
 </style>
