@@ -1,6 +1,6 @@
 export default function Button(props) {
-    const { children } = props
+    const { children, ...other } = props
     return (
-        <button className="reload-btn">{children}</button>
+        <button className="reload-btn" {...other}>{children}</button>
     )
 }
