@@ -23,5 +23,25 @@ export const getMessage = async () => {
   const i = Math.floor(Math.random() * 10) % 5;
   return {
     value: random[i],
+    id: getUuid(),
   };
+};
+
+function getUuid() {
+  var s = [];
+  var hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (var i = 0; i < 16; i++) {
+    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+  }
+  s[8] = "-";
+  let uuid = s.join("");
+  return uuid;
+}
+
+const count = 3;
+const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,pricture&noinfo`;
+
+export const fetchList = async () => {
+  const res = await fetch(fakeDataUrl);
+  return res.json();
 };

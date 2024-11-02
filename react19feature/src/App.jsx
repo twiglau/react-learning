@@ -9,11 +9,14 @@ import Condition from './Condition.jsx'
 import SuspenseComp from './Suspense.jsx'
 import Normal from './Normal.jsx'
 import ClickUpdateData from './ClickUpdateData.jsx'
+import InitialRequestAndUpdate from './InitialRequestAndUpdate.jsx'
+import RequestAndAddDataToList from './RequestAndAddDataToList.jsx'
 
 import { getMessage } from './api.js'
 
 export default function Index() {
   const promise = getMessage()
+  console.log('App 组件更新了')
   return (
     <>
       <div>
@@ -32,6 +35,10 @@ export default function Index() {
         <Normal />
         <h4>7. 点击更新数据</h4>
         <ClickUpdateData />
+        <h4>8. 初始化请求并更新</h4>
+        <InitialRequestAndUpdate />
+        <h4>9. 请求并新增到列表</h4>
+        <RequestAndAddDataToList />
       </div>
       <div style={{ borderTop: 'solid 2px #000',marginTop: '20px',textAlign: 'center'}}>
         分割线
