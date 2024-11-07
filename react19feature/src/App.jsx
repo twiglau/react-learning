@@ -11,6 +11,9 @@ import Normal from './Normal.jsx'
 import ClickUpdateData from './ClickUpdateData.jsx'
 import InitialRequestAndUpdate from './InitialRequestAndUpdate.jsx'
 import RequestAndAddDataToList from './RequestAndAddDataToList.jsx'
+import PageListLoadMore from './PageListLoadMore.jsx'
+import Search from './Search.jsx'
+import TabNormalLoad from './TabNormalLoad.jsx'
 
 import { getMessage } from './api.js'
 
@@ -39,6 +42,12 @@ export default function Index() {
         <InitialRequestAndUpdate />
         <h4>9. 请求并新增到列表</h4>
         <RequestAndAddDataToList />
+        <h4>10. 分页列表加载更多</h4>
+        <PageListLoadMore />
+        <h4>11. 搜索</h4>
+        <Search />
+        <h5>12. tab简单切换</h5>
+        <TabNormalLoad />
       </div>
       <div style={{ borderTop: 'solid 2px #000',marginTop: '20px',textAlign: 'center'}}>
         分割线
