@@ -14,9 +14,9 @@
 
 import { use, useState, Suspense } from 'react'
 import Message from './Message'
-import Skeleton from './Skeletion'
-import Button from './Button'
-import { getMessage } from './api'
+import Skeleton from '../Skeletion'
+import Button from '../Button'
+import { getMessage } from '../api'
 
 export default function Demo01() {
     const [ promise, update ] = useState(null)

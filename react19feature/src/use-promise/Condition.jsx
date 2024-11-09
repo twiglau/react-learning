@@ -1,7 +1,7 @@
 import { use, useState  } from 'react'
 import Message from './Message'
-import Button from './Button'
-import Skeleton from './Skeletion'
+import Button from '../Button'
+import Skeleton from '../Skeletion'
 
 const _api2 = new Promise((resolve) => {
     resolve({ value: `

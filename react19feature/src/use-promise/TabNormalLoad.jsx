@@ -1,8 +1,8 @@
 import { useState, Suspense } from 'react'
-import Skeleton from './Skeletion'
-import { fetchListWithCancel } from './api'
-import Tabs from './Tabs'
-import List from './List'
+import Skeleton from '../Skeletion'
+import { fetchListWithCancel } from '../api'
+import Tabs from '../Tabs'
+import List from '../List'
 
 
 const tabs = [

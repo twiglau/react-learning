@@ -1,8 +1,8 @@
 import { Suspense, useEffect, useState, use } from "react"
-import Skeleton from "./Skeletion"
-import Userinfo from "./Userinfo"
-import { getMessage } from "./api"
-import Button from "./Button"
+import Skeleton from "../Skeletion"
+import Userinfo from "../Userinfo"
+import { getMessage } from "../api"
+import Button from "../Button"
 /**
  * 1. 旧的思路在实现上非常巧妙, 但是简洁度依然弱于新的实现方案. 
  * 2. 旧的实现还有许多问题需要处理,例如初始化请求了两次, 我们要考虑接口防重的问题. 

@@ -14,9 +14,9 @@
 
 import { use, useState, Suspense } from 'react'
 import Message from './Message'
-import Skeleton from './Skeletion'
-import Button from './Button'
-import { getMessage } from './api'
+import Skeleton from '../Skeletion'
+import Button from '../Button'
+import { getMessage } from '../api'
 
 export default function Demo01() {
     // 给状态 promise 赋值一个 Promise 对象作为初始值.

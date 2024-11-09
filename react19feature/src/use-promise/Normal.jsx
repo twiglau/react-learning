@@ -1,5 +1,5 @@
 import { Suspense } from 'react'
-import Skeleton from './Skeletion'
+import Skeleton from '../Skeletion'
 import Message from './MessageNormalComp'
 
 export default function Index() {

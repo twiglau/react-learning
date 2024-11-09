@@ -18,6 +18,15 @@
     border-radius: 10px;
 }
 
+
+.pt-4 {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
 .flex {
     display: flex;
 }

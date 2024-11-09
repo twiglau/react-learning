@@ -1,8 +1,8 @@
 import { Suspense, useState } from 'react'
-import { fetchList } from './api'
-import Skeleton from './Skeletion'
-import List from './List'
-import Button from './Button'
+import { fetchList } from '../api'
+import Skeleton from '../Skeletion'
+import List from '../List'
+import Button from '../Button'
 
 const Index = () => {
     const [promises, increasePromise] = useState(() => [fetchList()])

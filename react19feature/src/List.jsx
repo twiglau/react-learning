@@ -1,6 +1,15 @@
-import { use } from 'react'
-export default function CurrentList({promise}) {
+import { use, useEffect } from 'react'
+export default function CurrentList({promise, onComplete}) {
     const { results } = use(promise)
+
+    /**
+     * 这里我们需要考虑 onComplete 的执行时机要怎么比较合适. 因为如果onComplete中执行逻辑在父组件中,子组件无法控制,
+     * 因此父组件的执行逻辑可能会导致 子组件re-render, 因此我们可以简单使用 useEffect 来防止 onComplete 反复执行
+     */
+
+    useEffect(() => {
+        onComplete && onComplete(results.length)
+    }, [results.length])
 
     return (
         <div>

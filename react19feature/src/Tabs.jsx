@@ -22,6 +22,14 @@ export default function Tabs({tabs, onSwitch}) {
                     }}
                     >
                         {tab.name}
+                        {tab.count ? (
+                            <span
+                            className={classNames(
+                                tab.current ? 'selected':'normal',
+                                'ml-3 rounded-full px-2.5'
+                            )}
+                            >{tab.count}</span>
+                        ):null}
                     </a>
                 ))}
             </nav>
