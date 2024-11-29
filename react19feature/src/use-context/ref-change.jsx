@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, forwardRef } from 'react'
 import Input from '../Input'
 
 
@@ -8,7 +8,7 @@ export default function Demo01() {
     return (
         <div className='flex justify-between'>
             <input ref={input} type='text' className='border p-2 rounded-md flex-1' />
-            <button onClick={() => input.current.focus()}>点击获取焦点</button>
+            <button onClick={() => input.current.focus()}>点击获取焦点 01</button>
         </div>
     )
 }
@@ -37,8 +37,56 @@ export function Demo02() {
             <button 
             onClick={() => input.current.focus()}
             className='ml-3'
-            >点击获取焦点</button>
+            >点击获取焦点 02</button>
         </div>
     )
 
+}
+
+/**
+ * forwardRef 基础知识
+ * 1. 能够帮助 React 组件传递ref. 或者说是内部对象控制权的转移与转发. 
+ * 2. 它接收一个组件作为参数
+ * 3. 注意: 需要把 ref 放在自定义组件的参数中,而不是 props 的属性
+ */
+
+function MyInput01(props, ref) {
+    console.log(props, ref)
+    return <input ref={ref} />
+}
+
+const InputNumber = forwardRef(MyInput01)
+
+export function Demo03() {
+    const input = useRef(null)
+    return (
+        <div className='flex iustify-between'>
+            <InputNumber  ref={input} />
+            <button onClick={() => input.current.focus()}>点击获取焦点 03</button>
+        </div>
+    )
+}
+
+/**
+ * React19
+ * 1. forwardRef 直接背刺,由于 ref 传递机制的更改, 我们可以不用 forwardRef 也能做同样的事情了. 
+ * 2. 首先,在声明组件时, ref 不再独立成为一个参数, 而是作为 props 属性中的一个属性. 
+ */
+function MyInput02(props) {
+    return (
+        <label>
+            {props.label}
+            <input ref={props.ref} />
+        </label>
+    )
+}
+
+export function Demo04() {
+    const input = useRef(null)
+    return (
+        <div className='flex justify-between'>
+            <MyInput02 ref={input} />
+            <button onClick={() => input.current.focus()}>点击获取焦点 04</button>
+        </div>
+    )
 }

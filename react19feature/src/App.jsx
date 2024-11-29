@@ -17,7 +17,11 @@ import TabNormalLoad from './use-promise/TabNormalLoad.jsx'
 import TabCacheLoad from './use-promise/TabCacheLoad.jsx'
 import ParentGetData from './use-promise/ParentGetData.jsx'
 import SuspenseNest from './use-promise/SuspenseNest.jsx'
-import RefChange1, { Demo02 } from './use-context/ref-change.jsx'
+import RefChange1, { Demo02, Demo03, Demo04 } from './use-context/ref-change.jsx'
+import Comment from './use-context/Comment.jsx'
+import Task from './use-context/Task.jsx'
+import Test from './use-context/TestDialog.jsx'
+import TodoList from './use-context/todoList.jsx'
 
 import { getMessage } from './api.js'
 
@@ -27,9 +31,17 @@ export default function Index() {
   return (
     <>
       <div>
-        <h5>1. Ref 调整 </h5>
+        <h5>18. use 和 context 的使用</h5>
+        <TodoList />
+        <h5>17. 自定义弹窗 </h5>
+        <Task />
+        <Test />
+        <h5>16. Ref 调整 </h5>
         <RefChange1 />
         <Demo02 />
+        <Demo03 />
+        <Demo04 />
+        <Comment />
         <h5>15. Suspense嵌套 </h5>
         <SuspenseNest />
         <h5>14. 父级获取数据</h5>
