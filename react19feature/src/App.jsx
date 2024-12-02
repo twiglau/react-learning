@@ -22,6 +22,11 @@ import Comment from './use-context/Comment.jsx'
 import Task from './use-context/Task.jsx'
 import Test from './use-context/TestDialog.jsx'
 import TodoList from './use-context/todoList.jsx'
+import ThemeChange from './use-context/theme-change.jsx'
+import DeferredDemo from './use-deferred-value/DeferredDemo.jsx'
+import TransitionDemo01 from './use-transition/Demo01.jsx'
+import TransitionDemo02 from './use-transition/Demo02.jsx'
+import TransitionDemo03 from './use-transition/Demo03.jsx'
 
 import { getMessage } from './api.js'
 
@@ -31,8 +36,15 @@ export default function Index() {
   return (
     <>
       <div>
+        <h5>20. useTransition 使用</h5>
+        <TransitionDemo01 />
+        <TransitionDemo02 />
+        <TransitionDemo03 />
+        <h5>19. useDeferredValue 使用</h5>
+        <DeferredDemo />
         <h5>18. use 和 context 的使用</h5>
         <TodoList />
+        <ThemeChange />
         <h5>17. 自定义弹窗 </h5>
         <Task />
         <Test />
