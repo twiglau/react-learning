@@ -27,6 +27,12 @@ import DeferredDemo from './use-deferred-value/DeferredDemo.jsx'
 import TransitionDemo01 from './use-transition/Demo01.jsx'
 import TransitionDemo02 from './use-transition/Demo02.jsx'
 import TransitionDemo03 from './use-transition/Demo03.jsx'
+import FormDemo01 from './form-action/Demo01.jsx'
+import FormDemo02 from './form-action/Demo02.jsx'
+import FormDemo03 from './form-action/Demo03.jsx'
+import FormDemo04 from './form-action2/Demo02.jsx'
+import OptDemo01 from './use-optimistic/Demo01.jsx'
+import OptDemo02 from './use-optimistic/Demo02.jsx'
 
 import { getMessage } from './api.js'
 
@@ -36,6 +42,14 @@ export default function Index() {
   return (
     <>
       <div>
+        <h5>22. useOptimistic 的使用</h5>
+        <OptDemo01 />
+        <OptDemo02 />
+        <h5>21. form action 使用</h5>
+        <FormDemo01 />
+        <FormDemo02 />
+        <FormDemo03 />
+        <FormDemo04 />
         <h5>20. useTransition 使用</h5>
         <TransitionDemo01 />
         <TransitionDemo02 />

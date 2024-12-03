@@ -10,11 +10,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "babel-plugin-react-compiler": "^19.0.0-beta-df7b47d-20241124",
     "clsx": "^2.1.1",
+    "eslint-plugin-react-compiler": "^19.0.0-beta-df7b47d-20241124",
     "react": "19.0.0-rc-dfd30974ab-20240613",
     "react-dom": "19.0.0-rc-dfd30974ab-20240613",
     "react-router-dom": "^6.23.0",
-    "tailwind-merge": "^2.5.4"
+    "tailwind-merge": "^2.5.4",
+    "vite-plugin-react": "^4.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",

@@ -18,6 +18,10 @@ var requestOptions = {
 
 const url = "https://echo.apifox.com/delay/1";
 
+export const getMessage2 = async (message) => {
+  await fetch(url, requestOptions);
+  return message;
+};
 export const getMessage = async () => {
   await fetch(url, requestOptions);
   const i = Math.floor(Math.random() * 10) % 5;
