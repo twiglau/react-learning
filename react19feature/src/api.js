@@ -18,6 +18,18 @@ var requestOptions = {
 
 const url = "https://echo.apifox.com/delay/1";
 
+export const likeApi = async (message) => {
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.1) {
+        resolve(message);
+      } else {
+        reject(message);
+      }
+    }, 1000);
+  });
+  return message;
+};
 export const getMessage2 = async (message) => {
   await fetch(url, requestOptions);
   return message;

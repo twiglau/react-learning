@@ -33,6 +33,7 @@ import FormDemo03 from './form-action/Demo03.jsx'
 import FormDemo04 from './form-action2/Demo02.jsx'
 import OptDemo01 from './use-optimistic/Demo01.jsx'
 import OptDemo02 from './use-optimistic/Demo02.jsx'
+import OptDemo04 from './use-optimistic/Demo04.jsx'
 
 import { getMessage } from './api.js'
 
@@ -45,6 +46,7 @@ export default function Index() {
         <h5>22. useOptimistic 的使用</h5>
         <OptDemo01 />
         <OptDemo02 />
+        <OptDemo04 />
         <h5>21. form action 使用</h5>
         <FormDemo01 />
         <FormDemo02 />

@@ -6,3 +6,7 @@ export function reducer(state, newMessage) {
 
   return [...state, newItem];
 }
+
+export function reducer2(state, newState) {
+  return newState;
+}
