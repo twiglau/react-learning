@@ -18,10 +18,72 @@ var requestOptions = {
 
 const url = "https://echo.apifox.com/delay/1";
 
+export const likeApi = async (message) => {
+  await new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (Math.random() > 0.1) {
+        resolve(message);
+      } else {
+        reject(message);
+      }
+    }, 1000);
+  });
+  return message;
+};
+export const getMessage2 = async (message) => {
+  await fetch(url, requestOptions);
+  return message;
+};
 export const getMessage = async () => {
   await fetch(url, requestOptions);
   const i = Math.floor(Math.random() * 10) % 5;
   return {
     value: random[i],
+    id: getUuid(),
   };
+};
+
+function getUuid() {
+  var s = [];
+  var hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (var i = 0; i < 16; i++) {
+    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+  }
+  s[8] = "-";
+  let uuid = s.join("");
+  return uuid;
+}
+
+const count = 3;
+const fakeDataUrl = `https://randomuser.me/api/?results=${count}&inc=name,gender,email,nat,picture&noinfo`;
+
+export const fetchList = async () => {
+  const res = await fetch(fakeDataUrl);
+  return res.json();
+};
+
+export const fetchListWithCancel = (number) => {
+  let controller = new AbortController();
+  let signal = controller.signal;
+
+  const promise = new Promise((resolve) => {
+    fetch(
+      `https://randomuser.me/api/?results=${number}&inc=name,gender,email,nat,picture&noinfo`,
+      { signal }
+    )
+      .then((res) => {
+        resolve(res.json());
+      })
+      .catch(() => {
+        console.log("接口成功取消!");
+      });
+  });
+
+  promise.cancel = () => {
+    if (controller) {
+      controller.abort();
+    }
+  };
+
+  return promise;
 };

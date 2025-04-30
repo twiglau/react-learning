@@ -1,6 +1,6 @@
 import { useState, useRef,use } from 'react'
-import Skeleton from './Skeletion.jsx'
-import { getMessage } from './api.js'
+import Skeleton from '../Skeletion.jsx'
+import { getMessage } from '../api.js'
 import Message from './Message.jsx'
 
 export default function Demo03() {
