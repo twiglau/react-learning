@@ -1,5 +1,5 @@
 
-import Demo01, { Demo03 } from './1-use-promise/1-promise'
+import Page from './1-use-promise/2-suspense'
 import './App.css'
 
 function App() {
@@ -9,9 +9,13 @@ function App() {
       <div className='text-2xl text-blue-400'>
         测试
       </div>
-      <Demo01 />
+      {/* <Demo01 /> */}
       {/* <Demo02 /> */}
-      <Demo03 />
+      {/* <Demo03 /> */}
+      {/* <Demo04 /> */}
+
+      <Page />
+      {/* <Page01 /> */}
     </>
   )
 }
