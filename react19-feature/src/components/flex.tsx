@@ -1,9 +1,22 @@
-import React from "react"
+import clsx from "clsx"
+import React from 'react'
+import { twMerge } from 'tailwind-merge'
 
-const Flex = (props: { col:boolean,children: React.ReactNode, className:string }) => {
+interface FlexProps extends React.HTMLAttributes<HTMLDivElement> {
+  col: boolean
+}
+
+const Flex  = (props: FlexProps) => {
+  const { col, children, className, ...other} = props
+  
+  const base = 'flex items-center'
+  const cls = twMerge(clsx(base, {
+    'flex-col': col,
+    'flex-row': !col
+  }, className))
    return (
-    <div >
-      {props.children}
+    <div className={cls} {...other} >
+      {children}
     </div>
    )
 }

@@ -1,5 +1,5 @@
 
-import Page from './1-use-promise/2-suspense'
+import Page03 from './1-use-promise/4-initial-upate'
 import './App.css'
 
 function App() {
@@ -14,8 +14,11 @@ function App() {
       {/* <Demo03 /> */}
       {/* <Demo04 /> */}
 
-      <Page />
+      {/* <Page /> */}
       {/* <Page01 /> */}
+      {/* <Page02 /> */}
+      <Page03 />
+      {/* <Page04 /> */}
     </>
   )
 }
