@@ -10,3 +10,14 @@ export function createRandomMessage() {
   const idx = Math.floor(Math.random()*5)
   return random[idx]
 }
+
+export function uuid() {
+  const s = [];
+  const hexDigits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  for (let i = 0; i < 16; i++) {
+    s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+  }
+  s[8] = "-";
+  const uuid = s.join("");
+  return uuid;
+}

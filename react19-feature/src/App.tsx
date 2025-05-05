@@ -1,5 +1,5 @@
 
-import Page03 from './1-use-promise/4-initial-upate'
+import Index from './1-use-promise/6-load-more-list'
 import './App.css'
 
 function App() {
@@ -17,8 +17,12 @@ function App() {
       {/* <Page /> */}
       {/* <Page01 /> */}
       {/* <Page02 /> */}
-      <Page03 />
+      {/* <Page03 /> */}
       {/* <Page04 /> */}
+      {/* <Page05 /> */}
+      {/* <Page06 /> */}
+
+      <Index />
     </>
   )
 }
