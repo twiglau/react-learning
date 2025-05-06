@@ -35,8 +35,8 @@ interface PromiseWithCancel<T> extends Promise<T> {
   cancel: () => unknown
 }
 
-export function getUsersInfo() {
-  const len = Math.floor(Math.random()*10) % 10
+export function getUsersInfo(len:number = 10) {
+  
   const url1 = `https://api.thecatapi.com/v1/images/search?limit=${len}&page=0`
 
   // 1. 内建对象 AbortController 可以终止异步任务。
