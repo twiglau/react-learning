@@ -24,6 +24,13 @@ export default function TabDemo02() {
   // tabs, map 都是记录数据变化的，和状态无关，应该使用 useRef 
   // 避免 tabs, map 变化，引起组件渲染
 
+  const item = { a: 1}
+
+  const tempMap = new Set([item])
+  if(tempMap.has(item)) {
+    console.log('相等')
+  }
+
   function __handler(index: number) {
     t.current[selected].current = false
     t.current[index].current = true

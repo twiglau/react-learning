@@ -1,5 +1,5 @@
 
-import TabDemo02 from './1-cache-tabs'
+import TabDemo03 from './1-get-data-from-child'
 import './App.css'
 
 function App() {
@@ -26,7 +26,8 @@ function App() {
       {/* <Index01 /> */}
 
       {/* <TabDemo01 /> */}
-      <TabDemo02 />
+      {/* <TabDemo02 /> */}
+      <TabDemo03 />
     </>
   )
 }
