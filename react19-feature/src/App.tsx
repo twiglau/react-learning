@@ -1,5 +1,5 @@
 
-import Index from './1-use-promise/6-load-more-list'
+import TabDemo01 from './1-simple-tabs'
 import './App.css'
 
 function App() {
@@ -22,7 +22,10 @@ function App() {
       {/* <Page05 /> */}
       {/* <Page06 /> */}
 
-      <Index />
+      {/* <Index /> */}
+      {/* <Index01 /> */}
+
+      <TabDemo01 />
     </>
   )
 }
