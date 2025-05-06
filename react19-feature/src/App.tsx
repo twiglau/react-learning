@@ -1,5 +1,5 @@
 
-import TabDemo01 from './1-simple-tabs'
+import TabDemo02 from './1-cache-tabs'
 import './App.css'
 
 function App() {
@@ -25,7 +25,8 @@ function App() {
       {/* <Index /> */}
       {/* <Index01 /> */}
 
-      <TabDemo01 />
+      {/* <TabDemo01 /> */}
+      <TabDemo02 />
     </>
   )
 }
