@@ -1,6 +1,7 @@
+import Button from '@/components/button'
+import Dialog, { DialogRef } from '@/components/dialog'
 import Modal, { ModalRef } from '@/components/modal'
 import { useRef } from "react"
-import Dialog, { DialogRef } from './dialog'
 
 export default function Demo10(){
 
@@ -13,7 +14,7 @@ export default function Demo10(){
 
   return (
     <div className='flex justify-between'>
-      <button onClick={__click} className='button ml-3'>点击弹窗展示</button>
+      <Button success onClick={__click} className='button ml-3'>点击弹窗展示</Button>
       <Modal ref={modal}>
         <div className='bg-white p-4 max-w-xl mt-48 mx-auto rounded'>
           这是一个弹窗
@@ -34,7 +35,7 @@ export function Demo11() {
 
   return (
     <div className='flex justify-between'>
-      <button onClick={__click} className='button ml-3'>点击我，显示对话框</button>
+      <Button signal  onClick={__click} className='button ml-3'>点击我，显示对话框</Button>
       <Dialog ref={dialog} title='Message For You'>
         <strong className='text-red-500'>React 19</strong>
         是全网学习体验最好的小册，没有之一。它能帮助你快速到 React 的独特的开发魅力。

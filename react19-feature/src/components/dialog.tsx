@@ -12,6 +12,7 @@ const getClickPosition = (e: MouseEvent) => {
     x: e.pageX,
     y: e.pageY
   }
+  
 
   setTimeout(() => {
     mousePosition = null
@@ -25,9 +26,11 @@ document.addEventListener('click', getClickPosition, true)
 function setTransformOrigin(node: any, value: string) {
    const style = node.style;
    ['Webkit','Moz', 'Ms', 'ms'].forEach(function (prefix) {
-    style[prefix + '-TransformOrigin'] = value;
+    style[prefix + 'TransformOrigin'] = value;
    });
    style['transformOrigin'] = value;
+
+   console.log('style:', style)
 }
 
 function offset(el: HTMLDivElement) {
@@ -139,7 +142,7 @@ export default function Dialog(props: DialogProps) {
 
       const elOffset = offset(node)
       if(mousePosition) {
-        setTransformOrigin(node, mousePosition.x - elOffset.left + 'px'+ (mousePosition.y - elOffset.top) + 'px')
+        setTransformOrigin(node, mousePosition.x - elOffset.left + 'px '+ (mousePosition.y - elOffset.top) + 'px')
       }
     }
   }, [display])

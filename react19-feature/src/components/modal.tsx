@@ -37,8 +37,8 @@ export default function Modal(props: ModalProps) {
   }, [])
 
   const cls = clsx(C.modal, {
-    [C.in]: show,
-    [C.out]: !show
+    ["animation-in"]: show,
+    ["animation-out"]: !show
   })
 
   function __animationendHandler() {

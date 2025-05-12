@@ -9,31 +9,32 @@
     z-index: 1000
 }
 
-.in {
-    animation-name: _show_fd6cp_1
+.animation-in {
+    animation-name: show;
+    animation-fill-mode: forwards;
 }
 
-.out {
-    animation-name: _hide_fd6cp_1;
-    animation-fill-mode: forwards
+.animation-out {
+    animation-name: hide;
+    animation-fill-mode: forwards;
 }
 
-@keyframes _show_fd6cp_1 {
+@keyframes show {
     0% {
-        opacity: 0
+        background-color: #0000;
     }
 
     to {
-        opacity: 1
+        background-color: #000c;
     }
 }
 
-@keyframes _hide_fd6cp_1 {
+@keyframes hide {
     0% {
-        opacity: 1
+        background-color: #000c;
     }
 
     to {
-        opacity: 0
+        background-color: #0000;
     }
 }
