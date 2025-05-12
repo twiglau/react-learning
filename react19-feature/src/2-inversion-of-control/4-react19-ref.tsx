@@ -9,12 +9,13 @@
  */
 
 import { useRef } from "react";
+import CustomInput from "./custominput";
 
 export default function Demo09() {
   const input = useRef<HTMLInputElement>(null)
   return (
     <div className='flex justify-between'>
-      <input ref={input} className='border p-2 rounded-md flex-1' />
+      <CustomInput label="Test" ref={input} className='border p-2 rounded-md flex-1' />
       <button
       onClick={() => input.current?.focus()}
       className='ml-3'
