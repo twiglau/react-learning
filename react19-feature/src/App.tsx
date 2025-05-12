@@ -1,5 +1,6 @@
 
 import Demo05 from './1-use-in-low-react-version'
+import Demo10, { Demo11 } from './2-use-imperative-handle'
 import './App.css'
 
 function App() {
@@ -30,6 +31,8 @@ function App() {
       {/* <TabDemo03 /> */}
       {/* <Nest /> */}
       <Demo05 />
+      <Demo10 />
+      <Demo11 />
     </>
   )
 }
