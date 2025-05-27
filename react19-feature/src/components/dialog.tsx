@@ -104,6 +104,7 @@ export default function Dialog(props: DialogProps) {
   }, [])
 
   function close() {
+    
     setShow(false)
     modal.current?.close()
     document.body.style.overflow = 'visible'
@@ -125,7 +126,10 @@ export default function Dialog(props: DialogProps) {
     }
   }
 
+  console.log('这里的dialog:', display)
+
   function animationendHandler() {
+    console.log('animationendHandler', display)
     if(!show) {
       setDisplay(false)
     }
@@ -149,7 +153,7 @@ export default function Dialog(props: DialogProps) {
 
   return (
     <Modal ref={modal} onClose={closeHandler}>
-      {display ? (
+      {display  ? (
         <div
         ref={wrapperRef}
         className={cls}
@@ -161,7 +165,7 @@ export default function Dialog(props: DialogProps) {
               <div className='font-bold text-lg leading-6'>
                 {title}
               </div>
-              <div>
+              <div onClick={closeHandler}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-5">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                 </svg>

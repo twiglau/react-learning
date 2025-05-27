@@ -1,5 +1,6 @@
 
 import Demo05 from './1-use-in-low-react-version'
+import ContextDemo from './2-context'
 import Demo10, { Demo11 } from './2-use-imperative-handle'
 import './App.css'
 
@@ -33,6 +34,7 @@ function App() {
       <Demo05 />
       <Demo10 />
       <Demo11 />
+      <ContextDemo />
     </>
   )
 }
