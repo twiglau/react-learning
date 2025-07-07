@@ -27,6 +27,7 @@ export default function TabDemo03() {
     changeTabs([..._tabs])
 
     promise.cancel()
+    
     update(getUsersInfo())
   }
   function __completed(num:number) {

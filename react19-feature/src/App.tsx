@@ -2,6 +2,7 @@
 import Demo05 from './1-use-in-low-react-version'
 import ContextDemo from './2-context'
 import Demo10, { Demo11 } from './2-use-imperative-handle'
+import Search from './3-use-Deferred-Value-2'
 import Index3 from './3-use-Deferred-Value/index1'
 import './App.css'
 
@@ -37,6 +38,7 @@ function App() {
       <Demo11 />
       <ContextDemo />
       <Index3 />
+      <Search />
     </>
   )
 }
