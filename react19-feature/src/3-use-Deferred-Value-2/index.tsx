@@ -20,7 +20,7 @@ export default function Search() {
   return (
     <div className='space-x-2'>
       <Input onChange={__inputChange} placeholder='Enter something' />
-      <Suspense fallback={<Skeleton />}>
+      <Suspense fallback={<Skeleton />}>     
          <Spin loading={deferred !== promise}>
           <List promise={deferred} />
          </Spin>

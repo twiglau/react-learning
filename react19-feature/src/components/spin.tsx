@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { LoaderCircle } from 'lucide-react';
 import { PropsWithChildren } from "react";
 import "./spin.css";
 
@@ -13,7 +14,9 @@ export default function Spin(props:SpinProps) {
   return (
     <div className="relative">
       {children}
-      {loading ? <div className={cls} /> : null}
+      {loading ? <div className={cls}>
+        <LoaderCircle className="animate-spin text-gray-500" />
+      </div> : null}
     </div>
   )
 }
