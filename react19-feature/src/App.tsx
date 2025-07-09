@@ -1,6 +1,5 @@
 
-import Index from './3-use-Deferred-Value-3'
-import Table from './5-form-action'
+import FormStatus01 from './5-use-form-status'
 import './App.css'
 
 function App() {
@@ -37,8 +36,9 @@ function App() {
       <Index3 />
       <Search /> */}
       {/* <Transition /> */}
-      <Index />
-      <Table />
+      {/* <Index />
+      <Table /> */}
+      <FormStatus01 />
     </>
   )
 }
