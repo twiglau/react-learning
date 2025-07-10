@@ -1,5 +1,5 @@
 
-import FormStatus01 from './5-use-form-status'
+import Optmistic, { Optmistic2 } from './6-use-optmistic'
 import './App.css'
 
 function App() {
@@ -38,7 +38,13 @@ function App() {
       {/* <Transition /> */}
       {/* <Index />
       <Table /> */}
-      <FormStatus01 />
+      {/* <FormStatus01 /> */}
+
+
+
+      
+      <Optmistic />
+      <Optmistic2 />
     </>
   )
 }

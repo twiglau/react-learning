@@ -9,6 +9,12 @@ const count = 3;
 
 const url = `https://api.thecatapi.com/v1/images/search?limit=${count}&page=0`
 
+
+export async function getInputMessage(msg:string) {
+  await fetch(url, requestOptions)
+  return { value: msg, id: uuid() }
+}
+
 export const getMessage = async () => {
   const response = await fetch(url, requestOptions)
   const data = await response.json()
