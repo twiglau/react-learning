@@ -1,5 +1,6 @@
 
 import Optmistic, { Optmistic2 } from './6-use-optmistic'
+import Optmistic3 from './6-use-optmistic-2'
 import './App.css'
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
       
       <Optmistic />
       <Optmistic2 />
+      <Optmistic3 />
     </>
   )
 }
